@@ -2,10 +2,13 @@
   "name": "frontend-rdfa-editor-documentation",
   "version": "0.0.0",
   "private": true,
-  "description": "Small description for frontend-rdfa-editor-documentation goes here",
-  "repository": "",
+  "description": "Documentation site for ember-rdfa-editor",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lblod/frontend-rdfa-editor-documentation.git"
+  },
   "license": "MIT",
-  "author": "",
+  "author": "redpencil.io",
   "directories": {
     "doc": "doc",
     "test": "tests"
