@@ -1,5 +1,28 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-<WelcomePage />
-{{!-- Feel free to remove this! --}}
-
+<div>
+  <h1>RDFa editor</h1>
+</div>
+<nav>
+  <ul>
+    <li>{{#link-to "demo"}}Try it out!{{/link-to}}</li>
+    <li>
+      Documentation
+      <ul>
+        <li>
+          Core
+          <ul>
+            <li>{{#link-to "docs.core.from-repository" "lblod" "ember-rdfa-editor"}}RDFa editor{{/link-to}}</li>
+          </ul>
+        </li>
+        <li>
+          Plugins
+          <ul>
+            <li>{{#link-to "docs.plugins.from-repository" "lblod" "ember-rdfa-editor-agenda-plugin"}}Agenda plugin{{/link-to}}</li>
+            <li>{{#link-to "docs.plugins.from-repository" "lblod" "ember-rdfa-editor-aanwezigen-plugin"}}Aanwezigen plugin{{/link-to}}</li>
+            <li>{{#link-to "docs.plugins.implement-your-own"}}Implement your own plugin{{/link-to}}</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 {{outlet}}
