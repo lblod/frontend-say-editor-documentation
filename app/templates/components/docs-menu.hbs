@@ -1,0 +1,20 @@
+<div class="ui vertical menu">
+  {{link-to "Documentation" "docs" class="item"}}
+  <div class="item">
+    <div class="header">Core</div>
+    <div class="menu">
+      {{#each this.core as |component|}}
+        {{link-to component.label "docs.core.from-repository" component.namespace component.repository class="item"}}
+      {{/each}}
+    </div>
+  </div>
+  <div class="item">
+    <div class="header">Plugins</div>
+    <div class="menu">
+      {{#each this.plugins as |plugin|}}
+        {{link-to plugin.label "docs.plugins.from-repository" plugin.namespace plugin.repository class="item"}}
+      {{/each}}
+      {{#link-to "docs.plugins.implement-your-own" class="item"}}Implement your own{{/link-to}}
+    </div>
+  </div>
+</div>

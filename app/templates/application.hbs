@@ -1,5 +1,9 @@
-<div>
-  <h1>RDFa editor</h1>
+<div class="ui fixed inverted menu">
+  {{link-to "RDFa editor" "index" tagName="div" class="header item"}}
+  {{link-to "Try it out!" "demo" class="item"}}
+  {{link-to "Documentation" "docs" class="item"}}
 </div>
-<MainMenu />
-{{outlet}}
+
+<div class="application-outlet">
+  {{outlet}}
+</div>
