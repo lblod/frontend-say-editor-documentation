@@ -1,13 +1,10 @@
 import Route from '@ember/routing/route';
-import fetch from 'fetch';
-import Readme from 'frontend-rdfa-editor-documentation/models/readme';
-import readmeUrl from 'frontend-rdfa-editor-documentation/utils/github-readme-url';
+import { inject as service } from '@ember/service';
 
 export default class DocsPluginsFromRepositoryRoute extends Route {
+  @service repository;
+
   async model({namespace, repository}){
-    const url = readmeUrl(`${namespace}/${repository}`);
-    const response = await fetch(url);
-    const markdown = await response.text();
-    return new Readme(markdown, namespace, repository);
+    return this.repository.fetchReadme(namespace, repository);
   }
 }

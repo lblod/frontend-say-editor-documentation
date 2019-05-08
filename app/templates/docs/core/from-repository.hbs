@@ -1,1 +1,5 @@
-{{outlet}}
+<p>This is the README of {{this.model.repository}}.  Find the source on <a href={{concat "https://github.com/" this.model.repositoryPath "/blob/master/README.md"}}>GitHub</a>.  Pull Requests are always welcome! </p>
+
+<div class="markdown">
+  {{markdown-to-html markdown=this.model.markdown}}
+</div>
