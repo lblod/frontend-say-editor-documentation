@@ -1,4 +1,8 @@
-.application-outlet {
-  margin-top: 7em;
-}
+@import "generic";
 
+@import "bulma";
+
+@import "animations";
+@import "cards";
+@import "landing-page";
+@import "navigation";
