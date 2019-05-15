@@ -1,20 +1,24 @@
-<div class="ui vertical menu">
-  {{link-to "Documentation" "docs" class="item"}}
-  <div class="item">
-    <div class="header">Core</div>
-    <div class="menu">
-      {{#each this.core as |component|}}
-        {{link-to component.label "docs.core.from-repository" component.namespace component.repository class="item"}}
-      {{/each}}
-    </div>
-  </div>
-  <div class="item">
-    <div class="header">Plugins</div>
-    <div class="menu">
-      {{#each this.plugins as |plugin|}}
-        {{link-to plugin.label "docs.plugins.from-repository" plugin.namespace plugin.repository class="item"}}
-      {{/each}}
-      {{#link-to "docs.plugins.implement-your-own" class="item"}}Implement your own{{/link-to}}
-    </div>
-  </div>
-</div>
+{{#bulma-menu }}
+	{{#bulma-menu-list label="Overview"}}
+		<li>
+			{{link-to "Documentation" "docs" class="is-active"}}
+		</li>
+		<li>
+	    {{#link-to "docs.plugins.implement-your-own" class="item"}}Implement your own{{/link-to}}
+		</li>
+	{{/bulma-menu-list}}
+	{{#bulma-menu-list label="Core"}}
+    {{#each this.core as |component|}}
+	    <li>
+	      {{link-to component.label "docs.core.from-repository" component.namespace component.repository}}
+	    </li>
+    {{/each}}
+	{{/bulma-menu-list}}
+	{{#bulma-menu-list label="Plugins"}}
+    {{#each this.plugins as |plugin|}}
+    	<li>
+	      {{link-to plugin.label "docs.plugins.from-repository" plugin.namespace plugin.repository}}
+	    </li>
+    {{/each}}
+	{{/bulma-menu-list}}
+{{/bulma-menu}}
