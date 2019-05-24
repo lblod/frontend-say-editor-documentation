@@ -6,3 +6,8 @@
 .navbar-item:not(.nav-item-brand) {
 	padding-top: 0.75rem;
 }
+
+.navbar-brand svg {
+	max-height: 5rem;
+	// margin-top: 1rem;
+}

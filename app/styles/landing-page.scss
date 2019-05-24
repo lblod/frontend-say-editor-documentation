@@ -1,14 +1,177 @@
-.hero-shape .st0 {
-  stroke-dasharray: 400;
-  stroke-dashoffset: 10;
-  animation: dash 10s linear infinite;
+/* Landing page hero image animation */
+
+#card {
+	fill: #fff;
 }
 
-@keyframes dash {
-  from {
-    stroke-dashoffset: 1000;
+#highlight-name {
+  animation: opacity-1 3s;
+}
+
+#highlight-location {
+  animation: opacity-2 3s;
+}
+
+#highlight-quote {
+  animation: opacity-3 3s;
+}
+
+#laptop-screen,
+#user-card,
+#location-card,
+#quote-card {
+	transition: 300ms;
+}
+
+#laptop-screen {
+	fill: #fff;
+}
+
+#user-card {
+  animation: skew-1 3s;
+
+  &:hover {
+		transform: translate(502px, 68px);
+
+		#text-user {
+			opacity: 1;
+		}
+	}
+}
+
+#location-card {
+  animation: skew-2 3s;
+
+	&:hover {
+	transform: translate(186px, 270px); // translate(186px, 277px);
+
+		#text-location {
+			opacity: 1;
+		}
+	}
+}
+
+#quote-card {
+  animation: skew-3 3s;
+
+	  &:hover {
+		transform: translate(307px, 580px); // transform: translate(320px, 560px);
+
+		#text-quote {
+			opacity: 1;
+		}
+	}
+}
+
+#laptop-screen {
+
+	 &:hover {
+
+
+		#text-laptop {
+			opacity: 1;
+			transition: all 200ms;
+		}
+
+		#text {
+			opacity: 0;
+			transition: all 200ms;
+		}
+	}
+}
+
+#text-laptop,
+#text-quote,
+#text-user,
+#text-location {
+	transition: all 200ms;
+	opacity: 0;
+}
+
+@keyframes skew-1 {
+  0% {
+    transform: translate(550px, 80px);
+    opacity: 0;
   }
-  to {
-    stroke-dashoffset: 0;
+  80% {
+  	opacity: 1;
   }
+  100% {
+    transform: translate(532px, 68px);
+  }
+}
+
+@keyframes skew-2 {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0;
+    transform: translate(230px, 277px);
+  }
+  75% {
+  	opacity: 1;
+  }
+  100% {
+    transform: translate(186px, 277px);
+  }
+}
+
+@keyframes skew-3 {
+  0% {
+    opacity: 0;
+  }
+  55% {
+    opacity: 0;
+    transform: translate(320px, 560px);
+  }
+  75% {
+  	opacity: 1;
+  }
+  100% {
+    transform: translate(307px, 560px);
+  }
+}
+
+
+@keyframes opacity-1 {
+	0% {
+		opacity: 0;
+	}
+  20% {
+    opacity: 0;
+  }
+  75% {
+  	opacity: 1;
+  }
+}
+
+@keyframes opacity-2 {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0;
+  }
+  75% {
+  	opacity: 1;
+  }
+}
+
+@keyframes opacity-3 {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  75% {
+  	opacity: 1;
+  }
+}
+
+/* landing page how it works image */
+
+.how-it-works__image {
+	margin: 1rem 0 3rem;
 }
