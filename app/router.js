@@ -17,6 +17,8 @@ Router.map(function() {
       this.route('implement-your-own');
     });
   });
+  this.route('cases');
+  this.route('features');
 });
 
 export default Router;
