@@ -85,3 +85,18 @@
 		width: 100%;
 		opacity: 0.8;
 	}
+
+
+/* pictures */
+
+.img--bordered {
+	border: 1px solid rgba($black, 0.2);
+}
+
+.img--rounded {
+	border-radius: 3px;
+}
+
+.has-background-light .hr {
+	background-color: rgba($black, 0.1);
+}
