@@ -1,11 +1,11 @@
 {
-  "name": "frontend-rdfa-editor-documentation",
+  "name": "frontend-say-editor-documentation",
   "version": "0.0.0",
   "private": true,
-  "description": "Documentation site for ember-rdfa-editor",
+  "description": "Documentation site for SAY editor",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lblod/frontend-rdfa-editor-documentation.git"
+    "url": "git+https://github.com/lblod/frontend-say-editor-documentation.git"
   },
   "license": "MIT",
   "author": "redpencil.io",

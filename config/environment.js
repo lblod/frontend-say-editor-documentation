@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   let ENV = {
-    modulePrefix: 'frontend-rdfa-editor-documentation',
+    modulePrefix: 'frontend-say-editor-documentation',
     environment,
     rootURL: '/',
     locationType: 'auto',
