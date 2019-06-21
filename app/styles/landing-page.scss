@@ -175,3 +175,27 @@
 .how-it-works__image {
 	margin: 1rem 0 3rem;
 }
+
+
+.section-partners {
+	margin-bottom: 4rem;
+	text-align: center;
+
+	.column {
+		opacity: 0.7;
+
+		&:hover {
+			opacity: 1;
+		}
+	}
+
+	a {
+		height: 4rem;
+		display: flex;
+		margin-bottom: 1rem;
+
+		img {
+			min-height: 4rem;
+		}
+	}
+}
