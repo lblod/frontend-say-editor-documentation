@@ -58,14 +58,14 @@
 		    	{{link-to "Documentation" "docs" class="navbar-item is-tab"}}
 		    	{{link-to "Features" "features" class="navbar-item is-tab"}}
 		    	{{link-to "Case" "cases" class="navbar-item is-tab"}}
-		    	{{link-to "Demo" "demo" class="navbar-item is-tab"}}
+		    	{{!-- {{link-to "Demo" "demo" class="navbar-item is-tab"}} --}}
 			  {{/bulma-nav-left}}
-
+{{!--
 			  {{#bulma-nav-right class="navbar-end"}}
 			    <span class="navbar-item">
 			    	{{link-to "Demo" "demo" class="button is-primary"}}
 			    </span>
-			  {{/bulma-nav-right}}
+			  {{/bulma-nav-right}} --}}
 			</div>
 		</div>
 	{{/bulma-nav}}
@@ -81,7 +81,7 @@
 		  	<li>{{link-to "Documentation" "docs"}}</li>
 		  	<li>{{link-to "Features" "features"}}</li>
 		  	<li>{{link-to "Case" "cases"}}</li>
-		  	<li>{{link-to "Demo" "demo"}}</li>
+		  	{{!-- <li>{{link-to "Demo" "demo"}}</li> --}}
   		</ul>
   	</div>
   	<div class="column">
@@ -92,23 +92,27 @@
   		</ul>
   	</div>
   	<div class="column is-5">
+  		<p>Our partners, contributors &amp; clients</p>
   		<div class="columns">
 		  	<div class="column is-3">
 		  		<a href="https://binnenland.vlaanderen.be/" target="_blank">
-		  			<img src="/assets/images/logo-flanders.svg">
-		  			<img src="/assets/images/logo-redpencil.svg">
+		  			<img src="/assets/images/logo-abb.svg">
+		  		</a>
+		  		<a href="https://c-clearpartners.com/" target="_blank">
+		  			<img src="/assets/images/cclear-logo.png">
 		  		</a>
 		  	</div>
 		  	<div class="column is-3 is-offset-1">
 		  		<a href="https://redpencil.io" target="_blank">
 		  			<img src="/assets/images/logo-redpencil.svg">
-		  			<img src="/assets/images/cclear-logo.png">
+		  		</a>
+		  		<a href="https://departement-mow.vlaanderen.be" target="_blank">
+		  			<img src="/assets/images/logo-mobiliteit-openbare-werken.svg">
 		  		</a>
 		  	</div>
   			<div class="column is-3 is-offset-1">
-		  		<a href="https://c-clearpartners.com/" target="_blank">
-		  			<img src="/assets/images/cclear-logo.png">
-		  			<img src="/assets/images/logo-flanders.svg">
+		  		<a href="https://www.vlaanderen.be/organisaties/departement-kanselarij-en-bestuur" target="_blank">
+		  			<img src="/assets/images/logo-kanselarij-bestuur.svg">
 		  		</a>
 		  	</div>
 		  </div>
