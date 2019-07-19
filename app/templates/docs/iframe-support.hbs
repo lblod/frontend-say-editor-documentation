@@ -1,4 +1,5 @@
-<h1 id="use-case-integration-of-the-editor-in-an-iframe">Use case: integration of the editor in an iframe</h1>
+<div class="content">
+<h1 id="use-case-integration-of-the-editor-in-an-iframe">Integration of the editor in an iframe</h1>
 <p>It is possible to intergrate the editor in an iframe, even if it is running on a different domain. Some extra steps are required to interact with the editor in this case. The best (and possibly only) approach is to use <a href="https://html.spec.whatwg.org/multipage/web-messaging.html#crossDocumentMessages">postContent</a> to send messages to and receive messages from the iframe. This document describes how to set this up. In the examples below <code>software.html</code> is the parent page and <code>editor.html</code> is page used in the iframe.</p>
 
 <p>In <code>editor.html</code> some javascript code needs to set up an eventListener for the message event. In the example below a receiveMessage function is set up as the callback for the message event.</p>
@@ -32,3 +33,4 @@
 iframe.contentWindow.postMessage({method: &quot;setHtmlContent&quot;, content: &quot;&lt;p&gt;
 
 Assumenda et aut eius rem velit. Eius pariatur necessitatibus sit nobis sed. Sit repellendus deserunt quae repudiandae exercitationem consectetur amet veritatis. Accusantium est ipsa et velit. Ipsa eos et hic occaecati facere. Sit enim ullam est ratione aut aut occaecati.…&lt;/p&gt;&quot;}, &quot;https://the.target.org&quot;)</code></pre>
+</div>
