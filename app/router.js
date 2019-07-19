@@ -17,6 +17,7 @@ Router.map(function() {
       this.route('implement-your-own');
       this.route('reuse-of-data');
     });
+    this.route('iframe-support');
   });
   this.route('cases');
   this.route('features');
