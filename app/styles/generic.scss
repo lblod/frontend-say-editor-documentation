@@ -1,83 +1,3 @@
-/* Typography */
-
-	// Generic
-
-	$family-sans-serif: 'Open Sans', sans-serif !default;
-	$family-serif: 'Maitree', serif !default;
-
-	// Links
-
-	$link: $primary !default;
-	$link-visited: $black !default;
-
-	.content a {
-		text-decoration: underline;
-	}
-
-	// Headers
-
-	.title {
-		font-family: $family-serif;
-	}
-
-	$subtitle-line-height: 1.4 !default;
-	$subtitle-negative-margin: -1rem;
-
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
-		font-family: "Maitree", serif;
-	}
-
-
-	// Markdown text
-
-	.markdown {
-		p,
-		pre {
-			margin-bottom: 1em;
-		}
-
-		h1,
-		h2,
-		h3,
-		h4,
-		h5,
-		h6 {
-			&:not(first-child) {
-				margin: 1.5em 0 0.5em;
-			}
-		}
-
-		h1 {
-			font-size: 2rem;
-		}
-
-		h2 {
-			font-size: 1.75rem;
-		}
-
-		h3 {
-			font-size: 1.5rem;
-		}
-
-		h4 {
-			font-size: 1.25rem;
-		}
-
-		h5 {
-			font-size: 1.125rem;
-		}
-
-		h6 {
-			font-size: 1rem;
-		}
-	}
-
-
 /* Footer */
 
 	.footer img {
@@ -99,4 +19,19 @@
 
 .has-background-light .hr {
 	background-color: rgba($black, 0.1);
+}
+
+
+/* spacing */
+
+.space-1 {
+	margin-bottom: 1rem;
+}
+
+.space-2 {
+	margin-bottom: 2rem;
+}
+
+.space-3 {
+	margin-bottom: 3rem;
 }

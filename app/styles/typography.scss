@@ -1,0 +1,98 @@
+/* Typography */
+
+	// Settings
+
+	$family-sans-serif: 'Open Sans', sans-serif !default;
+	$family-serif: 'Maitree', serif !default;
+
+	$subtitle-line-height: 1.4 !default;
+	$subtitle-negative-margin: -1rem;
+
+	$body-color: $text;
+	$title-color: $body-color;
+
+	$size-1: 3rem;
+	$size-2: 2.5rem;
+	$size-3: 1.7rem;
+	$size-4: 1.5rem;
+	$size-5: 1.25rem;
+	$size-6: 1rem;
+
+	$weight-light: 300;
+	$weight-normal: 400;
+	$weight-bold: 700;
+
+	$radius-rounded: 290486px;
+
+
+	// General
+
+	.title {
+		font-family: $family-serif;
+	}
+
+	.subtitle {
+		font-family: $family-sans-serif;
+	}
+
+	.content .subtitle {
+		color: $text-light;
+	}
+
+	p {
+		margin-bottom: 1em;
+		max-width: 28rem;
+	}
+
+	pre {
+		display: block;
+		max-width: 100%;
+		overflow: auto;
+		margin-bottom: 2.5em;
+    white-space: pre-wrap;
+    word-break: keep-all;
+
+		code {
+	    white-space: pre-wrap;
+	    word-break: keep-all;
+		}
+	}
+
+	// Links
+
+	$link: $primary !default;
+	$link-visited: $black !default;
+
+	.content a {
+		text-decoration: underline;
+	}
+
+	a.link-dark {
+		color: $dark;
+
+		&:hover {
+			color: $primary;
+		}
+	}
+
+	a:not(.button):not(.navbar-item) {
+		text-decoration: underline;
+		transition: color 300ms;
+
+		&:hover {
+			color: lighten($primary, 10%);
+		}
+	}
+
+	.menu-list a:not(.button):not(.navbar-item) {
+		text-decoration: none;
+	}
+
+	// tags
+
+	.has-background-light .tag {
+		border-radius: $radius-rounded;
+		margin-bottom: 0.5rem;
+		background-color: $primary;
+		color: $white;
+	}

@@ -1,0 +1,101 @@
+/* Messages */
+
+$message-radius: 0;
+$message-border-left: mergeColorMaps(("white": ($white, $black), "black": ($black, $white), "light": ($light, $light-invert), "dark": ($dark, $dark-invert), "primary": ($primary, $primary-invert), "link": ($link, $link-invert), "info": ($info, $info-invert), "success": ($success, $success-invert), "warning": ($warning, $warning-invert), "danger": ($danger, $danger-invert)), $custom-colors);
+
+.message {
+	border-radius: $message-radius;
+	box-shadow: inset 4px 0 darken($light, 10%);
+	background-color: $light;
+}
+
+// header
+
+	.message-header {
+		border-radius: $message-radius;
+		background-color: transparent;
+		color: $text;
+		padding: $size-4 $size-4 0 $size-4;
+	}
+
+	.message.is-small .message-header {
+		padding: $size-5 $size-5 0 $size-5;
+	}
+
+	.message-header p {
+		margin-bottom: 0;
+	}
+
+	.message-header .delete:hover {
+		transform: rotate(180deg);
+		transition: all 200ms;
+		background-color: $primary;
+	}
+
+// body
+
+	.message-body {
+		border-radius: $message-radius;
+	}
+
+// color
+
+	.message.is-dark {
+		.message-body {
+			color: $white;
+			background-color: $dark;
+		}
+
+		.message-header .delete {
+			background-color: rgba($light, 0.3);
+
+			&:hover {
+				background-color: $white;
+				&:before,
+				&:after {
+					background-color: $dark;
+				}
+			}
+		}
+	}
+
+	.message.is-primary,
+	.message.is-success,
+	.message.is-warning,
+	.message.is-danger {
+		background-color: $light;
+
+		.message-header,
+		.message-body {
+			background-color: transparent;
+			color: $dark;
+		}
+	}
+
+	.message.is-primary {
+		box-shadow: inset 4px 0 $primary;
+	}
+
+	.message.is-success {
+		box-shadow: inset 4px 0 $success;
+
+		.message-header .delete:hover {
+			background-color: $success;
+		}
+	}
+
+	.message.is-warning {
+		box-shadow: inset 4px 0 $warning;
+
+		.message-header .delete:hover {
+			background-color: $warning;
+		}
+	}
+
+	.message.is-danger {
+		box-shadow: inset 4px 0 $danger;
+
+		.message-header .delete:hover {
+			background-color: $danger;
+		}
+	}

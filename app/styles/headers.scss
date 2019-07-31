@@ -1,0 +1,74 @@
+/* Headers */
+
+
+	// Documentation page specific
+
+	.content {
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			font-family: "Maitree", serif;
+			font-weight: $weight-bold;
+
+			&:not(first-child) {
+				margin: 1.5em 0 0.5em;
+			}
+		}
+
+		h1 {
+			font-size: $size-1;
+		}
+
+		h2 {
+			font-size: $size-2;
+		}
+
+		h3 {
+			font-size: $size-3;
+		}
+
+		h4 {
+			font-size: $size-4;
+		}
+
+		h5 {
+			font-size: $size-5;
+		}
+
+		h6 {
+			font-size: $size-6;
+		}
+	}
+
+	// Adapting headers
+
+	.content h1,
+	h1.title {
+		color: $text-light;
+	}
+
+	.content h2,
+	.content h4,
+	h2.title,
+	h4.title {
+		font-weight: $weight-light;
+	}
+
+	.content h4,
+	h4.title {
+		color: $text-light;
+	}
+
+	.content h6,
+	h6.title {
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		font-family: $family-sans-serif;
+		color: $text-lighter;
+		font-size: $size-6;
+		font-weight: $weight-bold;
+	}

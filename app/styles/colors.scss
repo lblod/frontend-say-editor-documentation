@@ -1,7 +1,18 @@
 // Colors
 $primary: #9000FA;
-$info:    #00A4D9;
-$success: #5eadb2;
-$warning: #fce473;
-$danger:  #ed6c63;
-$black: 	#333;
+$secondary: #00ceb9;
+
+$black: 	#544a62;
+$dark: $black;
+$gray: rgba($black, 0.6);
+$gray-light: rgba($black, 0.2);
+$white: #fff;
+
+$text: $black;
+$text-light: $dark;
+$text-lighter: $gray;
+
+$info:    $gray-light;
+$success: $secondary;
+$warning: #ffa64a;
+$danger:  #e9564b;

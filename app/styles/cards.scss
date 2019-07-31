@@ -1,3 +1,27 @@
 .card {
+	position: relative;
 	margin-bottom: 1rem;
+}
+
+.card-header .card-header-title {
+	font-weight: $weight-bold;
+	font-size: $size-5;
+	margin: 0;
+}
+
+.card-header a.card-header-icon {
+	text-decoration: none;
+	pointer-events: none;
+}
+
+.card-content .subtitle {
+	margin-top: 0;
+}
+
+.card-footer-item {
+	position: relative;
+}
+
+.card-footer > pre {
+	width: 100%;
 }
