@@ -1,0 +1,15 @@
+// Code
+
+pre {
+	display: block;
+	max-width: 100%;
+	overflow: auto;
+	margin-bottom: 2.5em;
+  white-space: pre-wrap;
+  word-break: keep-all;
+
+	code {
+    white-space: pre-wrap;
+    word-break: keep-all;
+	}
+}

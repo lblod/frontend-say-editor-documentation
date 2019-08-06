@@ -1,30 +1,30 @@
 {{#bulma-menu }}
-	{{#bulma-menu-list label="Overview"}}
-		<li>
-			{{link-to "Documentation" "docs" class="is-active"}}
-		</li>
-		<li>
-	    {{#link-to "docs.plugins.implement-your-own" class="item"}}Implement your own plugin{{/link-to}}
-		</li>
-		<li>
-	    {{#link-to "docs.plugins.reuse-of-data" class="item"}}Reusing data{{/link-to}}
-		</li>
-    <li>
-      {{#link-to "docs.iframe-support" class="item"}}Integrating using an iframe{{/link-to}}
-    </li>
-	{{/bulma-menu-list}}
-	{{#bulma-menu-list label="Core"}}
-    {{#each this.core as |component|}}
-	    <li>
-	      {{link-to component.label "docs.core.from-repository" component.namespace component.repository}}
-	    </li>
-    {{/each}}
-	{{/bulma-menu-list}}
-	{{#bulma-menu-list label="Plugins"}}
-    {{#each this.plugins as |plugin|}}
-    	<li>
-	      {{link-to plugin.label "docs.plugins.from-repository" plugin.namespace plugin.repository}}
-	    </li>
-    {{/each}}
-	{{/bulma-menu-list}}
+		{{#bulma-menu-list label="Overview"}}
+				<li>
+						{{link-to "Documentation" "docs" class="is-active"}}
+				</li>
+				<li>
+						{{#link-to "docs.plugins.implement-your-own" class="item"}}Implement your own plugin{{/link-to}}
+				</li>
+				<li>
+						{{#link-to "docs.plugins.reuse-of-data" class="item"}}Reusing data{{/link-to}}
+				</li>
+				<li>
+						{{#link-to "docs.iframe-support" class="item"}}Integrating using an iframe{{/link-to}}
+				</li>
+		{{/bulma-menu-list}}
+		{{#bulma-menu-list label="Core"}}
+				{{#each this.core as |component|}}
+						<li>
+								{{link-to component.label "docs.core.from-repository" component.namespace component.repository}}
+						</li>
+				{{/each}}
+		{{/bulma-menu-list}}
+		{{#bulma-menu-list label="Plugins"}}
+				{{#each this.plugins as |plugin|}}
+						<li>
+								{{link-to plugin.label "docs.plugins.from-repository" plugin.namespace plugin.repository}}
+						</li>
+				{{/each}}
+		{{/bulma-menu-list}}
 {{/bulma-menu}}
