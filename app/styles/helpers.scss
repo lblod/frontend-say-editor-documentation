@@ -1,0 +1,16 @@
+/* helpers */
+
+.is-vcentered {
+	display: flex;
+	flex-wrap: wrap;
+	align-content: center; /* used this for multiple child */
+	align-items: center; /* if an only child */
+}
+
+
+.is-vbottom {
+	display: flex;
+	flex-wrap: wrap;
+	align-content: flex-end; /* used this for multiple child */
+	align-items: flex-end; /* if an only child */
+}
