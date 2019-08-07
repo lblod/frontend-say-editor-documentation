@@ -49,6 +49,7 @@
     "ember-cli-sri": "^2.1.1",
     "ember-cli-template-lint": "^1.0.0-beta.1",
     "ember-cli-uglify": "^2.1.0",
+    "ember-composable-helpers": "^2.3.1",
     "ember-data": "github:emberjs/data#1df833396855d956b817540923dd89338463fec2",
     "ember-decorators": "^6.0.0",
     "ember-export-application-global": "^2.0.0",
