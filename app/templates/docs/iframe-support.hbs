@@ -6,16 +6,16 @@
 <p>The receiveMessage function needs to parse the received event.</p>
 <pre>
 		<code>
-				function receiveMessage(event) {
-					  const { method, content}  = event.data
-					  if (method === &#39;setHtmlContent&#39;) {
-					    	window.editor.setHtmlContent(content);
-					  }
-					  if (method === &#39;getHtmlContent&#39;) {
-						    const content = window.editor.getHtmlContent();
-						    event.source.postMessage(content, event.origin);
-					  }
-				}
+function receiveMessage(event) {
+  const { method, content}  = event.data
+  if (method === &#39;setHtmlContent&#39;) {
+  	window.editor.setHtmlContent(content);
+  }
+  if (method === &#39;getHtmlContent&#39;) {
+	  const content = window.editor.getHtmlContent();
+	  event.source.postMessage(content, event.origin);
+  }
+}
 		</code>
 </pre>
 <p>In the example above the function assumes that the event data consists of a method and a content field. If <code>data.method</code> is set to <code>setHtmlContent</code> the content field is passed to the editor. If <code>data.method</code> is set to <code>getHtmlContent</code> the function sends out a postMessage to the origin with the html content of the editor as data. The example assumes the editor has already been setup and is available under window.editor.</p>
@@ -25,25 +25,25 @@
 <p>The <code>receiveContent</code> function below verifies if the sender of the message is a trusted source and only handles the event if the origin matches a hardcoded uri. If the origin matches, it assumes <code>event.data</code> is the content of the editor.</p>
 <pre>
 		<code>
-				function receiveMessage(event) {
-					  if (event.origin === &quot;https://the.origin.org&quot;) {
-						    alert(&#39;content received&#39;);
-						    document.getElementById(&#39;content&#39;).innerHTML = event.data;
-					  }
-					  else {
-					    	console.log(&#39;not supported&#39;, event);
-					  }
-				}
+function receiveMessage(event) {
+  if (event.origin === &quot;https://the.origin.org&quot;) {
+	   alert(&#39;content received&#39;);
+	   document.getElementById(&#39;content&#39;).innerHTML = event.data;
+  }
+  else {
+    console.log(&#39;not supported&#39;, event);
+  }
+}
 		</code>
 </pre>
 
 <p>The example below sets the content of the editor from <code>software.html</code> with a postMessage that is send to <code>editor.html</code>.</p>
 <pre>
 		<code>
-				const iframe = document.getElementById(&#39;editor&#39;);
-				iframe.contentWindow.postMessage({
-						method: &quot;setHtmlContent&quot;,
-						content: &quot;&lt;p&gt;Assumenda et aut eius rem velit. Eius pariatur necessitatibus sit nobis sed. Sit repellendus deserunt quae repudiandae exercitationem consectetur amet veritatis. Accusantium est ipsa et velit. Ipsa eos et hic occaecati facere. Sit enim ullam est ratione aut aut occaecati.…&lt;/p&gt;&quot;},
-				&quot;https://the.target.org&quot;)
+const iframe = document.getElementById(&#39;editor&#39;);
+iframe.contentWindow.postMessage({
+	method: &quot;setHtmlContent&quot;,
+	content: &quot;&lt;p&gt;Assumenda et aut eius rem velit. Eius pariatur necessitatibus sit nobis sed. Sit repellendus deserunt quae repudiandae exercitationem consectetur amet veritatis. Accusantium est ipsa et velit. Ipsa eos et hic occaecati facere. Sit enim ullam est ratione aut aut occaecati.…&lt;/p&gt;&quot;},
+&quot;https://the.target.org&quot;)
 		</code>
 </pre>

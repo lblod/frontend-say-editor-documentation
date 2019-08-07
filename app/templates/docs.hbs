@@ -1,12 +1,21 @@
-<section class="section">
-		<div class="container">
-				<div class="columns">
-						<div class="column is-2">
-								<DocsMenu />
+<div class="container">
+		<section class="section">
+				<div class="container">
+						<div class="columns">
+							<div class="column">
+								<h1 class="title is-1">Documentation</h1>
+								<p>How to Work With Say</p>
+							</div>
 						</div>
-						<div class="column is-7 is-offset-2 content">
-								{{outlet}}
+						<hr class="hr">
+						<div class="columns">
+								<article class="column is-3 is-3-tablet">
+										<DocsMenu />
+								</article>
+								<article class="column auto is-9-tablet content">
+										{{outlet}}
+								</article>
 						</div>
 				</div>
-		</div>
-</section>
+		</section>
+</div>
