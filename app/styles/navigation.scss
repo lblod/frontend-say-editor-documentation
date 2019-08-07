@@ -9,9 +9,17 @@
 
 .navbar-brand svg {
 	max-height: 5rem;
-	// margin-top: 1rem;
+	margin-left: 0.8rem;
+
+	@media screen and (max-width: 1087px) {
+		margin-left: 1.5rem;
+	}
 }
 
 .navbar-brand svg {
 	enable-background: new 0 0 577.4 109.5;
+}
+
+.navbar-mobile {
+	border-top: 2px solid $gray-light;
 }
