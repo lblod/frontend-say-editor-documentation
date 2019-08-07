@@ -21,6 +21,7 @@
 #location-card,
 #quote-card {
 	transition: 300ms;
+	position: relative;
 }
 
 #laptop-screen {
@@ -28,10 +29,12 @@
 }
 
 #user-card {
-  animation: skew-1 3s;
+  right: 1rem;
+  transform: translate(550px, 80px);
 
   &:hover {
-		transform: translate(502px, 68px);
+  	right: 2rem;
+  	transform: translate(502px, 68px);
 
 		#text-user {
 			opacity: 1;
@@ -40,10 +43,12 @@
 }
 
 #location-card {
-  animation: skew-2 3s;
+  top: 1rem;
+  transform: translate(230px, 277px);
 
 	&:hover {
-	transform: translate(186px, 270px); // translate(186px, 277px);
+		top: 2rem;
+		transform: translate(186px, 270px);
 
 		#text-location {
 			opacity: 1;
@@ -52,10 +57,12 @@
 }
 
 #quote-card {
-  animation: skew-3 3s;
+  top: 1rem;
+  transform: translate(320px, 560px);
 
-	  &:hover {
-		transform: translate(307px, 580px); // transform: translate(320px, 560px);
+  &:hover {
+  	top: 3rem;
+  	transform: translate(307px, 580px);
 
 		#text-quote {
 			opacity: 1;
@@ -86,88 +93,6 @@
 #text-location {
 	transition: all 200ms;
 	opacity: 0;
-}
-
-@keyframes skew-1 {
-  0% {
-    transform: translate(550px, 80px);
-    opacity: 0;
-  }
-  80% {
-  	opacity: 1;
-  }
-  100% {
-    transform: translate(532px, 68px);
-  }
-}
-
-@keyframes skew-2 {
-  0% {
-    opacity: 0;
-  }
-  30% {
-    opacity: 0;
-    transform: translate(230px, 277px);
-  }
-  75% {
-  	opacity: 1;
-  }
-  100% {
-    transform: translate(186px, 277px);
-  }
-}
-
-@keyframes skew-3 {
-  0% {
-    opacity: 0;
-  }
-  55% {
-    opacity: 0;
-    transform: translate(320px, 560px);
-  }
-  75% {
-  	opacity: 1;
-  }
-  100% {
-    transform: translate(307px, 560px);
-  }
-}
-
-
-@keyframes opacity-1 {
-	0% {
-		opacity: 0;
-	}
-  20% {
-    opacity: 0;
-  }
-  75% {
-  	opacity: 1;
-  }
-}
-
-@keyframes opacity-2 {
-  0% {
-    opacity: 0;
-  }
-  25% {
-    opacity: 0;
-  }
-  75% {
-  	opacity: 1;
-  }
-}
-
-@keyframes opacity-3 {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0;
-  }
-  75% {
-  	opacity: 1;
-  }
 }
 
 /* landing page how it works image */
