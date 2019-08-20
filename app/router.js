@@ -22,6 +22,7 @@ Router.map(function() {
   this.route('cases');
   this.route('features');
   this.route('ui-kit');
+  this.route('about');
 });
 
 export default Router;
