@@ -18,6 +18,9 @@ Router.map(function() {
       this.route('reuse-of-data');
     });
     this.route('iframe-support');
+    this.route('core-development');
+    this.route('deploy-as-addon');
+    this.route('deploy-as-library');
   });
   this.route('cases');
   this.route('features');

@@ -17,6 +17,11 @@ export default class DocsMenuComponent extends Component {
       label: 'Plugin generator',
       namespace: 'lblod',
       repository: 'ember-rdfa-editor-plugin-generator'
+    },
+    {
+      label: 'Embeddable',
+      namespace: 'lblod',
+      repository: 'frontend-embeddable-notule-editor'
     }
   ];
 
