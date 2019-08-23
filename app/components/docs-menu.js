@@ -7,6 +7,16 @@ export default class DocsMenuComponent extends Component {
       label: 'RDFa editor',
       namespace: 'lblod',
       repository: 'ember-rdfa-editor'
+    },
+    {
+      label: 'Contenteditable',
+      namespace: 'lblod',
+      repository: 'ember-contenteditable-editor'
+    },
+    {
+      label: 'Plugin generator',
+      namespace: 'lblod',
+      repository: 'ember-rdfa-editor-plugin-generator'
     }
   ];
 
