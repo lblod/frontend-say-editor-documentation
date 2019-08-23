@@ -2,15 +2,10 @@
 
 Say editor consists of several Ember.js addons, the main addons and their wiring are detailed here.
 
-<h2>ember-rdfa-editor</h2>
-<p>This addon provides an RDFa aware rich text editor. The rdfa-editor component forms the core of say editor. It wraps around the content-editable component (see ember-contenteditable-editor below) and provides a plugin architecture to interact with the editor. The editor-toolbar component uses the rawEditor interface to interact with the document and provides bold,italic, list and indentation functionality.</p>
-
-<p>The plugin architecture consists of an event processor, the hintsregistry and a dispatcher. The insertText, removeText and handleFullContentUpdate methods of the EventProcessor are linked to the content-editable component. The events are processed and results in adjustments to the hintsregistry if required. It also extracts and links RDFa in the document to the relevant data structures, these are then passed on to the plugins via the dispatcher.</p>
-
-<p>A plugin is called with snippet, which consists of the range, text and rdfa contexts defined for that range. Based on this snippet the plugin can decide to add or remove hints in the hintsregistry.</p>
-
 <h2>ember-contenteditable-editor</h2>
-<p>This addon provides a conten-editable component. The component renders the actual DOMElement that captures all input. It maintains the document (and related) state  and is the entrypoint for all input events.</p>
+<p>This addon provides a content-editable component. The component renders the actual DOMElement that captures all input. It maintains the document (and related) state  and is the entrypoint for all input events.</p>
+
+<img src="/assets/images/content-editable-input-flow.png">
 
 <p>The addon also provides a class RawEditor that is consumed by ember-rdfa-editor. The class provides an api to interact with content-editable and contains all core state of the editor. The main properties and functions of this class are detailed in the contenteditable {{#link-to "docs.core.from-repository" "lblod" "ember-contenteditable-editor"}}README{{/link-to}} and included here:.</p>
 
@@ -29,3 +24,13 @@ Say editor consists of several Ember.js addons, the main addons and their wiring
   <li><code>rawEditor.toggleProperty(selection, property)</code> <code>function</code> toggles an <code>EditorProperty</code> on the selection</li>
   <li><code>rawEditor.togglePropertyAtCurrentPosition(property)</code> <code>function</code> toggles an <code>EditorProperty</code> on the current position, assumes a collapsed selection.</li>
 </ul>
+
+
+<h2>ember-rdfa-editor</h2>
+<p>This addon provides an RDFa aware rich text editor. The rdfa-editor component forms the core of say editor. It wraps around the content-editable component (see ember-contenteditable-editor below) and provides a plugin architecture to interact with the editor. The editor-toolbar component uses the rawEditor interface to interact with the document and provides bold,italic, list and indentation functionality.</p>
+
+<p>The plugin architecture consists of an event processor, the hintsregistry and a dispatcher. The insertText, removeText and handleFullContentUpdate methods of the EventProcessor are linked to the content-editable component. The events are processed and results in adjustments to the hintsregistry if required. It also extracts and links RDFa in the document to the relevant data structures, these are then passed on to the plugins via the dispatcher.</p>
+
+<p>A plugin is called with snippet, which consists of the range, text and rdfa contexts defined for that range. Based on this snippet the plugin can decide to add or remove hints in the hintsregistry.</p>
+
+<img src="/assets/images/rdfa-editor-input-flow.png">
