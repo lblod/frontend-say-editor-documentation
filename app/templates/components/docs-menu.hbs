@@ -4,27 +4,28 @@
 						{{link-to "Quickstart" "docs" class="item"}}
 				</li>
 				<li>
-						{{#link-to "docs.plugins.implement-your-own" class="item"}}Implement your own plugin{{/link-to}}
+						{{#link-to "docs.plugins.implement-your-own" class="item"}}Extending{{/link-to}}
 				</li>
 				<li>
 					{{#link-to "docs.plugins.reuse-of-data" class="item"}}Reusing data{{/link-to}}
 				</li>
-        <li>
-          {{#link-to "docs.core-development" class="item"}}Core development{{/link-to}}
-        </li>
 		{{/bulma-menu-list}}
     {{#bulma-menu-list label="Deployment"}}
       <li>
-        {{#link-to "docs.deploy-as-library"}}as a javascript library{{/link-to}}
+        {{#link-to "docs.deploy-as-library"}}As a javascript library{{/link-to}}
       </li>
       <li>
-        {{#link-to "docs.deploy-as-addon"}}as an Ember.js addon{{/link-to}}
+        {{#link-to "docs.deploy-as-addon"}}As an Ember.js addon{{/link-to}}
       </li>
       <li>
-        {{#link-to "docs.iframe-support"}}using an iframe{{/link-to}}
+        {{#link-to "docs.iframe-support"}}Using an iframe{{/link-to}}
       </li>
     {{/bulma-menu-list}}
 		{{#bulma-menu-list label="Core"}}
+      <li>
+        {{#link-to "docs.core-development" class="item"}}Overview{{/link-to}}
+      </li>
+
 				{{#each this.core as |component|}}
 						<li>
 								{{link-to component.label "docs.core.from-repository" component.namespace component.repository}}
