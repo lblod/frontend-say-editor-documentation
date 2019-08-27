@@ -1,5 +1,7 @@
 <div class="box">
-		<p>This is the README of {{this.model.repository}}.  Find the source on <a href={{concat "https://github.com/" this.model.repositoryPath "/blob/master/README.md"}}>GitHub</a>.  Pull Requests are always welcome! </p>
+  <p>
+    This is the README of {{this.model.repository}}. Find the source on <a href={{concat "https://github.com/" this.model.repositoryPath "/blob/master/README.md"}}>GitHub</a>. Pull Requests are always welcome!
+  </p>
 </div>
 
 <MarkdownToHtml @markdown={{this.model.markdown}} />
