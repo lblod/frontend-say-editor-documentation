@@ -46,4 +46,13 @@
         </li>
       {{/each}}
     {{/bulma-menu-list}}
+
+    {{#bulma-menu-list label="Example implementations"}}
+      {{#each this.existingImplementations as |impl|}}
+        <li>
+          {{link-to impl.label "docs.implementations.from-repository" impl.namespace impl.repository}}
+        </li>
+      {{/each}}
+    {{/bulma-menu-list}}
+
 {{/bulma-menu}}

@@ -26,6 +26,14 @@ export default class DocsMenuComponent extends Component {
     }
   ];
 
+  @tracked existingImplementations = [
+     {
+      label: 'Gelinkt Notuleren',
+      namespace: 'lblod',
+      repository: 'app-gelinkt-notuleren'
+    }
+  ];
+
   @tracked lblodPlugins = [
     {
       label: 'Aanwezigen',

@@ -21,11 +21,17 @@ Router.map(function() {
     this.route('core-development');
     this.route('deploy-as-addon');
     this.route('deploy-as-library');
+
+    this.route('implementations', function() {
+      this.route('from-repository', { path: ":namespace/:repository" });
+    });
   });
   this.route('cases');
   this.route('features');
   this.route('ui-kit');
   this.route('about');
+
+  this.route('implementations', function() {});
 });
 
 export default Router;
