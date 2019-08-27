@@ -96,11 +96,6 @@ export default class DocsMenuComponent extends Component {
 
   @tracked plugins = [
     {
-      label: '',
-      namespace: 'lblod',
-      repository: 'ember-rdfa-editor'
-    },
-    {
       label: 'Console logger',
       namespace: 'lblod',
       repository: 'ember-rdfa-editor-console-logger-plugin'
