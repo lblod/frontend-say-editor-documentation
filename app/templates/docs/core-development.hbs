@@ -3,11 +3,16 @@
 Say editor consists of several Ember.js addons, the main addons and their wiring are detailed here.
 
 <h2>ember-contenteditable-editor</h2>
-<p>This addon provides a content-editable component. The component renders the actual DOMElement that captures all input. It maintains the document (and related) state  and is the entrypoint for all input events.</p>
+<p>
+  This addon provides a content-editable component. The component renders the actual DOMElement that captures all input. It maintains the document (and related) state and is the entrypoint for all input events.
+</p>
 
-<img src="/assets/images/content-editable-input-flow.png">
+<img src="/assets/images/content-editable-input-flow.png" alt="Content editable input flow">
 
-<p>The addon also provides a class RawEditor that is consumed by ember-rdfa-editor. The class provides an api to interact with content-editable and contains all core state of the editor. The main properties and functions of this class are detailed in the contenteditable {{#link-to "docs.core.from-repository" "lblod" "ember-contenteditable-editor"}}README{{/link-to}} and included here:.</p>
+<p>
+  The addon also provides a class RawEditor that is consumed by ember-rdfa-editor. The class provides an api to interact with content-editable and contains all core state of the editor. The main properties and functions of this class are detailed
+  in the contenteditable {{#link-to "docs.core.from-repository" "lblod" "ember-contenteditable-editor"}}README{{/link-to}} and included here:.
+</p>
 
 <ul>
   <li><code>rawEditor.textContent</code> <code>string</code> current text content of the editor</li>
@@ -17,9 +22,9 @@ Say editor consists of several Ember.js addons, the main addons and their wiring
   <li><code>rawEditor.selectCurrentSelection()</code> <code>function</code> returns a <code>Selection</code> for the current selected range that can be used in an update operation</li>
   <li><code>rawEditor.selectHighlight([start,end], options)</code> <code>function</code> returns a <code>Selection</code> for the specified range, this selection can be used in an update operation</li>
   <li><code>rawEditor.selectContent([start, end], options)</code> <code>function</code> returns a <code>Selection</code> based on an RDFa context that was specified in the options. This selection can be used in an update operation</li>
-  <li><code>rawEditor.update(selection, { remove, add, set, desc})</code> <code>function</code>  Alters a selection from the API described above</li>
+  <li><code>rawEditor.update(selection, { remove, add, set, desc})</code> <code>function</code> Alters a selection from the API described above</li>
   <li><code>rawEditor.replaceDomNode(domNode, { callback, failedCallback, motivation})</code> <code>function</code> verifies the dom node is present in the internal representation and executes callback if succesfull, calls failedCallback if not.</li>
-  <li><code>rawEditor.applyProperty(selection, property)</code>  <code>function</code> applies an <code>EditorProperty</code> to the selection</li>
+  <li><code>rawEditor.applyProperty(selection, property)</code> <code>function</code> applies an <code>EditorProperty</code> to the selection</li>
   <li><code>rawEditor.cancelProperty(selection, property)</code> <code>function</code> cancels an <code>EditorProperty</code> on the selection</li>
   <li><code>rawEditor.toggleProperty(selection, property)</code> <code>function</code> toggles an <code>EditorProperty</code> on the selection</li>
   <li><code>rawEditor.togglePropertyAtCurrentPosition(property)</code> <code>function</code> toggles an <code>EditorProperty</code> on the current position, assumes a collapsed selection.</li>
@@ -27,10 +32,18 @@ Say editor consists of several Ember.js addons, the main addons and their wiring
 
 
 <h2>ember-rdfa-editor</h2>
-<p>This addon provides an RDFa aware rich text editor. The rdfa-editor component forms the core of say editor. It wraps around the content-editable component (see ember-contenteditable-editor below) and provides a plugin architecture to interact with the editor. The editor-toolbar component uses the rawEditor interface to interact with the document and provides bold,italic, list and indentation functionality.</p>
+<p>
+  This addon provides an RDFa aware rich text editor. The rdfa-editor component forms the core of say editor. It wraps around the content-editable component (see ember-contenteditable-editor below) and provides a plugin architecture to interact
+  with the editor. The editor-toolbar component uses the rawEditor interface to interact with the document and provides bold,italic, list and indentation functionality.
+</p>
 
-<p>The plugin architecture consists of an event processor, the hintsregistry and a dispatcher. The insertText, removeText and handleFullContentUpdate methods of the EventProcessor are linked to the content-editable component. The events are processed and results in adjustments to the hintsregistry if required. It also extracts and links RDFa in the document to the relevant data structures, these are then passed on to the plugins via the dispatcher.</p>
+<p>
+  The plugin architecture consists of an event processor, the hintsregistry and a dispatcher. The insertText, removeText and handleFullContentUpdate methods of the EventProcessor are linked to the content-editable component. The events are
+  processed and results in adjustments to the hintsregistry if required. It also extracts and links RDFa in the document to the relevant data structures, these are then passed on to the plugins via the dispatcher.
+</p>
 
-<p>A plugin is called with snippet, which consists of the range, text and rdfa contexts defined for that range. Based on this snippet the plugin can decide to add or remove hints in the hintsregistry.</p>
+<p>
+  A plugin is called with snippet, which consists of the range, text and rdfa contexts defined for that range. Based on this snippet the plugin can decide to add or remove hints in the hintsregistry.
+</p>
 
-<img src="/assets/images/rdfa-editor-input-flow.png">
+<img src="/assets/images/rdfa-editor-input-flow.png" alt="Rdfa editor input flow">
