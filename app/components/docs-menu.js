@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
 export default class DocsMenuComponent extends Component {
+
   @tracked core = [
     {
       label: 'RDFa editor',
@@ -25,12 +26,7 @@ export default class DocsMenuComponent extends Component {
     }
   ];
 
-  @tracked plugins = [
-    {
-      label: '',
-      namespace: 'lblod',
-      repository: 'ember-rdfa-editor'
-    },
+  @tracked lblodPlugins = [
     {
       label: 'Aanwezigen',
       namespace: 'lblod',
@@ -52,36 +48,6 @@ export default class DocsMenuComponent extends Component {
       repository: 'ember-rdfa-editor-citaten-plugin'
     },
     {
-      label: 'Console logger',
-      namespace: 'lblod',
-      repository: 'ember-rdfa-editor-console-logger-plugin'
-    },
-    {
-      label: 'Date manipulation',
-      namespace: 'lblod',
-      repository: 'ember-rdfa-editor-date-manipulation-plugin'
-    },
-    {
-      label: 'Date overwrite',
-      namespace: 'lblod',
-      repository: 'ember-rdfa-editor-date-overwrite-plugin'
-    },
-    {
-      label: 'Date',
-      namespace: 'lblod',
-      repository: 'ember-rdfa-editor-date-plugin'
-    },
-    {
-      label: 'Document tasklist',
-      namespace: 'lblod',
-      repository: 'ember-rdfa-editor-document-tasklist-plugin'
-    },
-    {
-      label: 'Document title',
-      namespace: 'lblod',
-      repository: 'ember-rdfa-editor-document-title-plugin'
-    },
-    {
       label: 'Fractievorming',
       namespace: 'lblod',
       repository: 'ember-rdfa-editor-fractievorming-plugin'
@@ -90,11 +56,6 @@ export default class DocsMenuComponent extends Component {
       label: 'Aanstelling gemeenteraadsleden',
       namespace: 'lblod',
       repository: 'ember-rdfa-editor-gemeenteraadsleden-aanstelling-plugin'
-    },
-    {
-      label: 'Generic model',
-      namespace: 'lblod',
-      repository: 'ember-rdfa-editor-generic-model-plugin'
     },
     {
       label: 'Installatievergadering',
@@ -127,6 +88,54 @@ export default class DocsMenuComponent extends Component {
       repository: 'ember-rdfa-editor-scoped-bestuursorgaan-plugin'
     },
     {
+      label: 'Stemming',
+      namespace: 'lblod',
+      repository: 'ember-rdfa-editor-stemming-module-plugin'
+    },
+  ];
+
+  @tracked plugins = [
+    {
+      label: '',
+      namespace: 'lblod',
+      repository: 'ember-rdfa-editor'
+    },
+    {
+      label: 'Console logger',
+      namespace: 'lblod',
+      repository: 'ember-rdfa-editor-console-logger-plugin'
+    },
+    {
+      label: 'Date manipulation',
+      namespace: 'lblod',
+      repository: 'ember-rdfa-editor-date-manipulation-plugin'
+    },
+    {
+      label: 'Date overwrite',
+      namespace: 'lblod',
+      repository: 'ember-rdfa-editor-date-overwrite-plugin'
+    },
+    {
+      label: 'Date',
+      namespace: 'lblod',
+      repository: 'ember-rdfa-editor-date-plugin'
+    },
+    {
+      label: 'Document tasklist',
+      namespace: 'lblod',
+      repository: 'ember-rdfa-editor-document-tasklist-plugin'
+    },
+    {
+      label: 'Document title',
+      namespace: 'lblod',
+      repository: 'ember-rdfa-editor-document-title-plugin'
+    },
+    {
+      label: 'Generic model',
+      namespace: 'lblod',
+      repository: 'ember-rdfa-editor-generic-model-plugin'
+    },
+    {
       label: 'Scroll to',
       namespace: 'lblod',
       repository: 'ember-rdfa-editor-scroll-to-plugin'
@@ -135,11 +144,6 @@ export default class DocsMenuComponent extends Component {
       label: 'Template',
       namespace: 'lblod',
       repository: 'ember-rdfa-editor-standard-template-plugin'
-    },
-    {
-      label: 'Stemming',
-      namespace: 'lblod',
-      repository: 'ember-rdfa-editor-stemming-module-plugin'
     },
     {
       label: 'Variables',
