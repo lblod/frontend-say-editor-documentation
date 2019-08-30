@@ -12,10 +12,10 @@
   {{/bulma-menu-list}}
   {{#bulma-menu-list label="Deployment"}}
     <li>
-      {{#link-to "docs.deploy-as-library"}}As a javascript library{{/link-to}}
+      {{#link-to "docs.deploy-as-addon"}}As an Ember.js addon{{/link-to}}
     </li>
     <li>
-      {{#link-to "docs.deploy-as-addon"}}As an Ember.js addon{{/link-to}}
+      {{#link-to "docs.deploy-as-library"}}As a javascript library{{/link-to}}
     </li>
     <li>
       {{#link-to "docs.iframe-support"}}Using an iframe{{/link-to}}
@@ -31,6 +31,7 @@
         {{link-to component.label "docs.core.from-repository" component.namespace component.repository}}
       </li>
     {{/each}}
+    <li><a href="/code/"> API documentation </a> </li>
   {{/bulma-menu-list}}
     {{#bulma-menu-list label="Plugins"}}
       {{#each this.plugins as |plugin|}}
