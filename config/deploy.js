@@ -10,14 +10,14 @@ module.exports = function(deployTarget) {
     },
     'ssh-index': { // copy and deploy index.html
       username: 'root',
-      host: 'rpio-dev.s.redpencil.io',
+      host: 'say-editor.s.redpencil.io',
       port: 22,
       remoteDir: '/data/app-say-editor-documentation-dev/documentation-app',
       allowOverwrite: true,
       agent: process.env.SSH_AUTH_SOCK
     },
     'rsync': { // copy assets
-      host: 'root@rpio-dev.s.redpencil.io',
+      host: 'root@say-editor.s.redpencil.io',
       port: 22,
       dest: '/data/app-say-editor-documentation-dev/documentation-app',
       delete: false,
@@ -26,7 +26,13 @@ module.exports = function(deployTarget) {
   };
 
   if (deployTarget === 'production') {
-    //TODO:
+    ENV['ssh-index']['remoteDir'] = '/data/app-say-editor-documentation/documentation-app';
+    ENV['rsync']['dest'] = '/data/app-say-editor-documentation/documentation-app';
+  }
+
+  if (deployTarget === 'development') {
+    ENV['ssh-index']['remoteDir'] = '/data/app-say-editor-documentation-dev/documentation-app';
+    ENV['rsync']['dest'] = '/data/app-say-editor-documentation-dev/documentation-app';
   }
 
   // Note: if you need to build some configuration asynchronously, you can return
