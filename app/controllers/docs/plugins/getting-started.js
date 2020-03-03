@@ -93,6 +93,20 @@ Then insert in the content of our editor the following
 
     <span property="ns:aProperty" datatype="xsd:date" content="2012-12-12">12 december 2012</span>
 
+And finally allow our plugin in the frontend
+
+    frontend-rdfa-editor-demo/app/config/editor-profiles.js
+
+    export default {
+      default: [
+        "rdfa-editor-date-overwrite-plugin"
+      ],
+      all: [
+        "rdfa-editor-date-overwrite-plugin"
+      ],
+      none: []
+    };
+
 If you now click on the date in the editor, a card will pop up, allowing you to change the date.
 
 ## Create new plugins
