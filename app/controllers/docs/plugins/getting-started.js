@@ -80,18 +80,20 @@ And finally allow our plugin in the frontend
 Now you should be able to insert a date in your document ! When you click on the insert button on the card, the 
 following HTML will be inserted in your document.
 
-    
 
 ### ember-rdfa-editor-date-overwrite-plugin
 
-This plugin allows you to chan
+This plugin allows you to change a date in your document, RDFa content included.
 
+We first need to install the plugin
 
+    ember install @lblod/ember-rdfa-editor-date-overwrite-plugin
 
+Then insert in the content of our editor the following
 
+    <span property="ns:aProperty" datatype="xsd:date" content="2012-12-12">12 december 2012</span>
 
-
-
+If you now click on the date in the editor, a card will pop up, allowing you to change the date.
 
 ## Create new plugins
 
