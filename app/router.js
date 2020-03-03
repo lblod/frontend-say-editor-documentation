@@ -16,6 +16,7 @@ Router.map(function() {
       this.route('from-repository', { path: ":namespace/:repository" });
       this.route('implement-your-own');
       this.route('reuse-of-data');
+      this.route('getting-started');
     });
     this.route('iframe-support');
     this.route('core-development');
