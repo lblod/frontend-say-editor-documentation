@@ -17,11 +17,10 @@ Backend
     cd app-rdfa-editor-demo
     docker-compose up
 
-Frontend
+Frontend (the node modules are pre-included in the repository in case of slow internet)
 
     git clone https://github.com/lblod/frontend-rdfa-editor-demo.git
     cd frontend-rdfa-editor-demo
-    npm install
     ember serve --proxy http://host
 
 ## Adding the editor to your app
