@@ -103,11 +103,11 @@ There are three parts interacting when writing a plugin:
 
 A plugin can be generated from a blueprint.  We have already ran the blueprint and we've added a few files to interact with dbpedia, a service that extracts semantic information from Wikipedia articles.
 
-In our plugin we will have to edit 3 files:
+In our plugin we will have to edit four files.  The mentioned `addons` folder can be found as a subfolder of `/node_modules/@lblod/ember-rdfa-editor-wikipedia-slug-plugin/`
   - `addon/services/rdfa-editor-wikipedia-slug-plugin.js`: Service which identifies relevant text and provides highlights
   - `addon/templates/components/editor-plugins/wikipedia-slug-card.hbs`: Visual representation of our hint card
   - `addon/components/editor-plugins/wikipedia-slug-card.js`: JavaScript logic foc our hint card
-  - `/app/config/editor-profiles.js`: Contains all enabled plugin services (we need to add ours)
+  - `/app/config/editor-profiles.js`: Contains all enabled plugin services for our editor (we need to add ours, this is not relative to the addon)
 
 ### Service
 
