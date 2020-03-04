@@ -17,6 +17,7 @@ Router.map(function() {
       this.route('implement-your-own');
       this.route('reuse-of-data');
       this.route('getting-started');
+      this.route('tuto-with-full-example');
     });
     this.route('iframe-support');
     this.route('core-development');
