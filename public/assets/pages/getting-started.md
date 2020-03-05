@@ -1,32 +1,10 @@
 # Getting started
-    
-Welcome to this getting started tutorial!  In this tutorial we will implement a new plugin, giving a rough idea on how to extend the editor.
 
-
-This tutorial assumes that you:
-
-- know of JavaScript
-- have installed ember-cli (`npm install -g ember-cli`)
-- have docker and docker-compose installed
+Welcome to this getting started tutorial!  In this tutorial we will implement a new plugin, giving a rough idea on how to extend the editor. The tutorial assumes some basic knowledge of JavaScript.
 
 ## Setting up our environment
 
-The application we are building has a backend for minimal data storage and a frontend containing the editor itself.
-
-### Setting up the backend stack
-
-The backend is used to store your documents and to retrieve some meta-information.
-
-First download the stack
-
-    git clone https://github.com/lblod/app-rdfa-editor-demo.git
-    cd app-rdfa-editor-demo
-    
-And then boot it up with docker-compose
-
-    docker-compose up
-
-Note: By default the stack will expose an HTTP endpoint on port 80.  In case that is taken, you can override the corresponding port in the docker-compose.yml file.  Keep in mind that you will need to update the ember serve command below with that same port.
+The application we are building has a backend for minimal data storage and a frontend, written in Ember, containing the editor itself. The backend is hosted on a server. The frontend will run on your local machine and connect to the remote backend.
 
 ### Setting up the frontend
 
@@ -34,29 +12,34 @@ We have prepared a frontend application with a basic editor installed.  The node
 
     git clone https://github.com/lblod/frontend-rdfa-editor-demo.git
     cd frontend-rdfa-editor-demo
-    
-Ember comes with a command which watches the javascript sources and offers a live-reload.  Start it like so:
 
-    ember serve --proxy http://host
+You can start the application running the following npm command:
+
+    npm run start
+
+The command will build and start the Ember application, proxy requests to the remote backend and live-reload on changes in the source files.
 
 ### Verify the app is launched
 
-Visit http://localhost:4200 and view the wonder of a blank editor.
+Once the build finished, visit http://localhost:4200 and view the wonder of a blank editor.
 
 ## Add existing plugins
 
-The editor consists of plugins.  Some plugins are domain-specific, others are easy to reuse.  Let's enable a plugin to insert a date, and one to manipulate a date.
+The editor consists of plugins that make the editor 'smart'.  Plugins understand the context you're working in and try to give smart hints to insert or update knowledge in the editor. Some plugins are domain-specific, others are more generic which make them easy to reuse.
 
-### ember-rdfa-editor-date-plugin
+Adding a plugin to the editor consists of 2 steps:
+1. Installing the plugin
+2. Enabling the plugin in the editor configuration
 
-The date-plugin allows you to insert a date with correct annotations. When you type 'DD/MM/YYYY' a card will pop up, 
-asking you if you want to insert it as a date with the appropriate RDFa tags.
+Let's add a plugin to insert a date, and one to manipulate a date.
 
-NOTE: We already ran `ember install ember-rdfa-editor-date-plugin` so you only have to enable the plugin.
+### Insert a date using the date-plugin
 
-Enable this plugin by adding it to the editor-profiles.
+The date-plugin allows you to insert a date with correct annotations. When you type a date in the format 'DD/MM/YYYY', e.g. 06/03/2020, a hint card will pop up, proposing to annotate the date with the appropriate RDFa tags.
 
-    frontend-rdfa-editor-demo/app/config/editor-profiles.js
+In our demo application, the plugin `ember-rdfa-editor-date-plugin` is already installed. We just need to enable the plugin in the editor configuration in `frontend-rdfa-editor-demo/app/config/editor-profiles.js` by uncommenting the line containing `rdfa-editor-date-plugin`.
+
+    // File: frontend-rdfa-editor-demo/app/config/editor-profiles.js
 
     export default {
       default: [
@@ -64,21 +47,21 @@ Enable this plugin by adding it to the editor-profiles.
       ]
     };
 
-Now you should be able to insert a date in your document! When you type 20/20/2020 you will be greeted with a card, click on the insert button and the following HTML will be inserted in your document.
+If you save the change you've made, you will see the app reload. You should be able to insert a date in your document now! When you type 06/03/2020 you will be greeted with a card. Click on the insert button and the following HTML will be inserted in your document.
 
-    TODO: show the inserted html snippet
+    <span property="http://purl.org/dc/terms/created" datatype="http://www.w3.org/2001/XMLSchema#date" content="2020-03-06">
+        06.03.2020
+    </span>
 
-An annotated date, nice.
+An annotated date \o/ !
 
-### ember-rdfa-editor-date-overwrite-plugin
+### Update a date using the date-overwrite-plugin
 
-Inserting dates is something, but we should be able to update the dates.  That's what the date-overwrite-plugin does, RDFa content included.
+Inserting a date is one thing, but we should be able to update a date.  That's what the date-overwrite-plugin does. It updates the date in text as well as in the underlying RDFa annotations.
 
-NOTE: We already ran `ember install ember-rdfa-editor-date-overwrite-plugin` so you only have to enable it.
+As with the date plugin, the `ember-rdfa-editor-date-overwrite-plugin` is already installed. We just need to enable the plugin in the editor configuration in `frontend-rdfa-editor-demo/app/config/editor-profiles.js` by uncommenting the line containing `rdfa-editor-date-plugin`.
 
-To enable this plugin in the frontend, we add it to the editor-profiles.
-
-    frontend-rdfa-editor-demo/app/config/editor-profiles.js
+    // File: frontend-rdfa-editor-demo/app/config/editor-profiles.js
 
     export default {
       default: [
@@ -87,27 +70,39 @@ To enable this plugin in the frontend, we add it to the editor-profiles.
       ]
     };
 
-If you now click on the date in the editor, a card will pop up, allowing you to change the date.  That's two enabled plugins \o/.
+Save your changes. The editor will reload. Insert a new date with the date-plugin. After inserting the date, click on the date that got inserted in the text. A new hint card will pop proposing to update the date. That's two enabled plugins \o/.
 
-## Let's write our own!
+## Let's write our own plugin!
 
-If we can only reuse existing plugins, then we wouldn't be fully in control.  Let's write a plugin of our own.  For our new plugin, we will allow the insertion of links to Wikipedia articles.  We will show a hint card when typing `dbp:word`.
+If we can only reuse existing plugins, then we wouldn't be fully in control.  Let's write a plugin of our own.  For our new plugin, we will support the insertion of links to Wikipedia articles.  If the user types `dbp:word`, we will show a hint card proposing to insert a hyperlink to a Wikipedia article.
 
 There are three parts interacting when writing a plugin:
 
   - The editor: processes input
   - A service: is informed about new events, and decides where to provide hints
-  - A card: is shown to the user, and allows manipulation of a region
+  - A hint card: is shown to the user, and allows manipulation of a region of text in the editor
 
 ### Creating our own plugin
 
-A plugin can be generated from a blueprint.  We have already ran the blueprint and we've added a few files to interact with dbpedia, a service that extracts semantic information from Wikipedia articles.
+A plugin can be generated from a blueprint.  For this tutorial, we have already setup an initial plugin containing some helper functions to interact with dbpedia, a service that extracts semantic information from Wikipedia articles. The plugin is included in the `node_modules/@lblod/ember-rdfa-editor-wikipedia-slug-plugin` folder.
 
-In our plugin we will have to edit four files.  The mentioned `addons` folder can be found as a subfolder of `/node_modules/@lblod/ember-rdfa-editor-wikipedia-slug-plugin/`
-  - `addon/services/rdfa-editor-wikipedia-slug-plugin.js`: Service which identifies relevant text and provides highlights
-  - `addon/templates/components/editor-plugins/wikipedia-slug-card.hbs`: Visual representation of our hint card
-  - `addon/components/editor-plugins/wikipedia-slug-card.js`: JavaScript logic foc our hint card
-  - `/app/config/editor-profiles.js`: Contains all enabled plugin services for our editor (we need to add ours, this is not relative to the addon)
+First, as with the other plugins, we have to enable the plugin in the editor configuration:
+
+    // File: frontend-rdfa-editor-demo/app/config/editor-profiles.js
+
+    export default {
+      default: [
+        "rdfa-editor-date-plugin",
+        "rdfa-editor-date-overwrite-plugin",
+        "rdfa-editor-wikipedia-slug-plugin"
+      ]
+    };
+
+
+In our plugin we will have to edit three files.
+  - `addon/services/rdfa-editor-wikipedia-slug-plugin.js`: Service which identifies relevant text and provides highlights in the text
+  - `addon/templates/components/editor-plugins/wikipedia-slug-card.hbs`: Visual representation of our hint card show at the side
+  - `addon/components/editor-plugins/wikipedia-slug-card.js`: JavaScript logic of the hint card component
 
 ### Service
 
