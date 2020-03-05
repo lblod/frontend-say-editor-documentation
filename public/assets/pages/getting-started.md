@@ -13,21 +13,6 @@ This tutorial assumes that you:
 
 The application we are building has a backend for minimal data storage and a frontend containing the editor itself.
 
-### Setting up the backend stack
-
-The backend is used to store your documents and to retrieve some meta-information.
-
-First download the stack
-
-    git clone https://github.com/lblod/app-rdfa-editor-demo.git
-    cd app-rdfa-editor-demo
-    
-And then boot it up with docker-compose
-
-    docker-compose up
-
-Note: By default the stack will expose an HTTP endpoint on port 80.  In case that is taken, you can override the corresponding port in the docker-compose.yml file.  Keep in mind that you will need to update the ember serve command below with that same port.
-
 ### Setting up the frontend
 
 We have prepared a frontend application with a basic editor installed.  The node modules are pre-included in the repository to easen setup and consistency.
@@ -35,9 +20,10 @@ We have prepared a frontend application with a basic editor installed.  The node
     git clone https://github.com/lblod/frontend-rdfa-editor-demo.git
     cd frontend-rdfa-editor-demo
     
-Ember comes with a command which watches the javascript sources and offers a live-reload.  Start it like so:
+Ember comes with a command which watches the javascript sources and offers a live-reload. We provide a remote backend that can
+be reached by proxying to the following address. Start it like so:
 
-    ember serve --proxy http://host
+    npm run start --proxy=http://demo-backend.say-editor.com
 
 ### Verify the app is launched
 
