@@ -99,24 +99,40 @@ First, as with the other plugins, we have to enable the plugin in the editor con
     };
 
 
-In our plugin we will have to edit three files.
-  - `addon/services/rdfa-editor-wikipedia-slug-plugin.js`: Service which identifies relevant text and provides highlights in the text
-  - `addon/templates/components/editor-plugins/wikipedia-slug-card.hbs`: Visual representation of our hint card show at the side
-  - `addon/components/editor-plugins/wikipedia-slug-card.js`: JavaScript logic of the hint card component
+In our plugins we have three essential files:
 
-### Service
+#### Service
 
-This is the file `addon/services/rdfa-editor-your-name-plugin.js`. Here we will have to modify 2 methods:
-- `detectRelevantContext`: this method receives a context and returns a `Boolean` indicating if the context is relevant to our plugin or not, the context is a complex object representing a section of the document, you can read more about it here. For this use case we will use its `text` property where we can use RegEx to see if it matches the structure `dbp:word`.
-- `generateHintsForContext`: this method receives a context that we already know that's relevant and creates a hint for it, we can completely customize the hint and card generation process but we will follow the one that's already there, for that we will need to create a card with a text and a location, the location is the characters that we will highlight, and the text is some text we will pass down to the card, in this case we will get the location of the characters that form the string `dbp:word` and will pass down `word` as a string.
+The file `addon/services/rdfa-editor-your-name-plugin.js` is the core of the plugin : the service that is in charge of knowing when your plugin has to be used and where. For that purpose it follows three steps:
+- removing previous hints
+- finding new contexts where the plugin could apply
+- create new hints for those contexts
 
-### Plugin Component
+#### Template
 
-This is related to the file `addon/components/editor-plugins/your-name-card.js`. In this file we will provide you with one function `getDbpediaOptions` that gets the term and set the variable this.options containing an array with all the relevant options found on dppedia in order to link to wikipedia. We will also link this function to the `willRender` hook of the component, which is an Ember thick to ensure the function will run before showing the card.
-For this file you will have to create new function called `generateLink` and modify the `insert` action.
-- `generateLink`: this method is very basic, it will just generate the link html getting the first option from the this.options array. The link will be like `https://en.wikipedia.org/wiki/Word`, also we will have to use the js `encodeURI` method in order to escape the string.
-- `insert`: this method is triggered by clicking the "add" button of the template. It selects the highlighted string that we get from the hint (we get the location on the component) and replaces it by the link generated on the previous method. For this we can use the `selectHighlight` and the `update` methods on the editor
+The file `addon/templates/components/editor-plugins/your-name-card.js` is where you can interact with the user about the plugin. Its content will show up in a card at the upper right corner of the editor.
 
-### Template
+#### Plugin Component
 
-This is related to the file `addon/templates/components/editor-plugins/your-name-card.js` this is the simplest step, we just have to replace the text in the card by a question asking the user if he wants to replace the text by a link to the word we got in the options, for this we will use the ember get helper that has the following structure `{{get array index}}`.
+The file `addon/components/editor-plugins/your-name-card.js` is the JavaScript file related to the template. It's where you can put all the logic you need to fill your purpose.
+
+#### Fill-in the TODOs
+
+As the session is quite short we already provided the service, the template and parts of the card of the rdfa-editor-wikipedia-slug-plugin.
+
+- `addon/services/rdfa-editor-wikipedia-slug-plugin.js`: the service which is identifies relevant text and provides highlights in the text. Thanks to the RegEx we search for text matching `dbp:word` in the document, and we create a new hint for each matching result. We can pass useful information to the hint, like here the `word` we are looking for in dbpedia.
+
+- `addon/templates/components/editor-plugins/wikipedia-slug-card.hbs`: the template of our hint cardn showing at the side. It allows us to interact with the user, asking if they really want to insert a link to dbpedia for the word they were looking for.
+
+- `addon/components/editor-plugins/wikipedia-slug-card.js`: JavaScript logic of the hint card component
+
+In this file we will provide you with one function `getDbpediaOptions` that gets the researched word and queries dbpedia to get matching options. It will run everytime the card gets rendered (see `willRender`).
+
+--> To make our card insert a link to wikipedia in the editor you will have to fill the method `generateLink` and modify the `insert` action.
+
+- `generateLink`: this method should generate the link to the word we want to insert in our document. It will look like `https://en.wikipedia.org/wiki/Word`.We will need the `encodeURI` method in order to escape the string.
+- `insert`: this method is triggered by clicking the "add" button of the template. It selects the researched word that we get from the hint and replaces it by the link generated on the previous method. For this we can use the `selectHighlight` and the `update` methods on the editor.
+
+
+
+
