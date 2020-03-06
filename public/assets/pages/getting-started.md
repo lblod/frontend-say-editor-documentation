@@ -74,19 +74,18 @@ Save your changes. The editor will reload. Insert a new date with the date-plugi
 
 ## Let's write our own plugin!
 
-If we can only reuse existing plugins, then we wouldn't be fully in control.  Let's write a plugin of our own.  For our new plugin, we will support the insertion of links to Wikipedia articles.  If the user types `dbp:word`, we will show a hint card proposing to insert a hyperlink to a Wikipedia article.
-
-There are three parts interacting when writing a plugin:
-
-  - The editor: processes input
-  - A service: is informed about new events, and decides where to provide hints
-  - A hint card: is shown to the user, and allows manipulation of a region of text in the editor
+If we can only reuse existing plugins, then we wouldn't be fully in control.  Let's write a plugin of our own.  For our new plugin, we will support the insertion of links to Wikipedia articles.  If the user types `dbp:word`, we will show a hint card proposing to insert a hyperlink to a Wikipedia article. Once the hyperlink is inserted, another plugin will show a card with a snippet from Wikipedia when the cursor is positioned in the hyperlink.
 
 ### Creating our own plugin
 
-A plugin can be generated from a blueprint.  For this tutorial, we have already setup an initial plugin containing some helper functions to interact with dbpedia, a service that extracts semantic information from Wikipedia articles. The plugin is included in the `node_modules/@lblod/ember-rdfa-editor-wikipedia-slug-plugin` folder.
+If you want to create a new plugin, you can generate a skeleton using [https://github.com/lblod/ember-rdfa-editor-plugin-generator](the plugin generator). For this tutorial, we have already prepared two plugins:
+- wikipedia-slug-plugin: a plugin that will propose to insert a hyperlink to Wikipedia
+- dbpedia-info-plugin: a plugin that will show an info card when clicking a Wikipedia link
 
-First, as with the other plugins, we have to enable the plugin in the editor configuration:
+
+The plugins are already installed and included in the `node_modules/@lblod` folder. But the code still contains some TODOs. It's up to you to complete the implementation and make the hint cards work correctly.
+
+First, as with the other plugins, we have to enable the new plugins in the editor configuration:
 
     // File: frontend-rdfa-editor-demo/app/config/editor-profiles.js
 
@@ -94,29 +93,36 @@ First, as with the other plugins, we have to enable the plugin in the editor con
       default: [
         "rdfa-editor-date-plugin",
         "rdfa-editor-date-overwrite-plugin",
-        "rdfa-editor-wikipedia-slug-plugin"
+        "rdfa-editor-wikipedia-slug-plugin",
+        "rdfa-editor-dbpedia-info-plugin"
       ]
     };
 
 
-In our plugins we have three essential files:
+Next, we're going to have a look at the source code of the plugins. Keep in mind that there are three parts interacting when writing a plugin:
+
+  - The editor: processes input
+  - A service: is informed about new events, and decides where to provide hints
+  - A hint card: is shown to the user, and allows manipulation of a region of text in the editor
+
+For the tutorial the following files are relevant:
 
 #### Service
 
-The file `addon/services/rdfa-editor-your-name-plugin.js` is the core of the plugin : the service that is in charge of knowing when your plugin has to be used and where. For that purpose it follows three steps:
-- removing previous hints
-- finding new contexts where the plugin could apply
-- create new hints for those contexts
+The service, located in `addon/services/rdfa-editor-<your-plugin-name>.js`, is the core of the plugin. The service is in charge of preparing hint cards for text regions it understands based on the editor's intput. For that purpose it typically follows three steps:
+1. removing old hints
+2. finding relevant contexts where the plugin could apply
+3. creating hints to show for these contexts
 
-#### Template
+#### Hint card template
 
-The file `addon/templates/components/editor-plugins/your-name-card.js` is where you can interact with the user about the plugin. Its content will show up in a card at the upper right corner of the editor.
+The hint card template, located in `addon/templates/components/editor-plugins/your-name-card.js`, is the visualization of the hint card shown to the user. The hint card allows the user to execute actions on the editor's content. The template will show up in a card at the upper right corner of the editor.
 
-#### Plugin Component
+#### Hint card component
 
-The file `addon/components/editor-plugins/your-name-card.js` is the JavaScript file related to the template. It's where you can put all the logic you need to fill your purpose.
+The hint card component, located in `addon/components/editor-plugins/your-name-card.js`, is the JavaScript file related to the hint card template. It implements the interactions between the hint card and the editor (e.g. inserting a hyperlink).
 
-#### Fill-in the TODOs
+#### Complete the plugin's impletation (aka resolve the TODOs)
 
 As the session is quite short we already provided the service, the template and parts of the card of the rdfa-editor-wikipedia-slug-plugin.
 
