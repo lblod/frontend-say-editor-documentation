@@ -120,19 +120,20 @@ The file `addon/components/editor-plugins/your-name-card.js` is the JavaScript f
 
 As the session is quite short we already provided the service, the template and parts of the card of the rdfa-editor-wikipedia-slug-plugin.
 
-- `addon/services/rdfa-editor-wikipedia-slug-plugin.js`: the service which is identifies relevant text and provides highlights in the text. Thanks to the RegEx we search for text matching `dbp:word` in the document, and we create a new hint for each matching result. We can pass useful information to the hint, like here the `word` we are looking for in dbpedia.
+- `addon/services/rdfa-editor-wikipedia-slug-plugin.js`: the service which is identifies relevant text and provides highlights in the text. Thanks to the RegEx we search for text matching `dbp:word` in the document, and we create a new hint for each matching result. 
 
-- `addon/templates/components/editor-plugins/wikipedia-slug-card.hbs`: the template of our hint cardn showing at the side. It allows us to interact with the user, asking if they really want to insert a link to dbpedia for the word they were looking for.
+--> There are three TODOs in this file :
+1. Inspect the contexts object
+2. Remove old hints from the hints registry
+3. Add new hints for every matching context
+
+- `addon/templates/components/editor-plugins/wikipedia-slug-card.hbs`: the template of our hint card showing at the side. It allows us to interact with the user, asking if they really want to insert a link to dbpedia for the word they were looking for.
 
 - `addon/components/editor-plugins/wikipedia-slug-card.js`: JavaScript logic of the hint card component
 
 In this file we will provide you with one function `getDbpediaOptions` that gets the researched word and queries dbpedia to get matching options. It will run everytime the card gets rendered (see `willRender`).
 
---> To make our card insert a link to wikipedia in the editor you will have to fill the method `generateLink` and modify the `insert` action.
+--> To make our card insert a link to wikipedia in the editor you will have to modify the `insert` action.
 
-- `generateLink`: this method should generate the link to the word we want to insert in our document. It will look like `https://en.wikipedia.org/wiki/Word`.We will need the `encodeURI` method in order to escape the string.
-- `insert`: this method is triggered by clicking the "add" button of the template. It selects the researched word that we get from the hint and replaces it by the link generated on the previous method. For this we can use the `selectHighlight` and the `update` methods on the editor.
-
-
-
-
+1. select the highlight (`editor.selectHighlight`)
+2. update the selected context (`editor.update`)
