@@ -293,8 +293,8 @@ Hinst can be removed by request to the HintsRegistry.  We passed this instance, 
 
 Next up, we have to select the region of our text to operate on.  For this to happen correctly, we first update our selected region to the latest state of the editor.  Then we select the highlight of that region.
 
-    info.hintsRegistry.removeHintsAtLocation( info.location, info.hrId, "wikipedia-slug-scope");
     const mappedLocation = info.hintsRegistry.updateLocationToCurrentIndex(info.hrId, info.location);
+    const selection = info.editor.selectHighlight( mappedLocation );
 
 Lastly, we call the update function of the editor with this selection.  We request the editor to insert some HTML
 
