@@ -2,7 +2,9 @@
 
 Welcome to this getting started tutorial!  In this tutorial we will enable some existing plugins and we will implementa  new one.  The tutorial assumes some basic knowledge of JavaScript.
 
-<iframe src="https://player.vimeo.com/video/401924173" width="640" height="334" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+<div class="c-video-wrapper">
+  <iframe src="https://player.vimeo.com/video/401924173" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+</div>
 
 ## Setting up our environment
 
