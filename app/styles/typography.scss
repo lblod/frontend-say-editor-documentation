@@ -74,6 +74,11 @@
 		text-decoration: none;
 	}
 
+	.menu-list a.is-active:hover {
+		color: $white;
+		background-color: lighten($primary, 5%);
+	}
+
 	// tags
 
 	.has-background-light .tag {
