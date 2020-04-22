@@ -3,17 +3,19 @@ Together we will enable some existing plugins and we will implement a new one. T
 
 ## Introduction: How Plugins Work
 
+This video will give you a basic overview of what you will achieve by the end of this tutorial.
+
 <div class="c-video-wrapper">
   <iframe src="https://player.vimeo.com/video/401924173" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 </div>
 
 ## Setting up our Environment
 
-The application we are building has a backend for minimal data storage and a frontend, written in Ember, containing the editor itself. The backend is hosted on a server. The frontend will run on your local machine and connect to the remote backend.
+The application we are building has a back-end for minimal data storage and a front-end written in Ember that contains the editor itself. The back-end is hosted on a server. The front-end will run on your local machine and connect to the remote back-end.
 
 ### Setting up the Frontend
 
-We have prepared a frontend application with a basic editor installed.  This is going to be the basis of our testing.
+We have prepared a front-end application with a basic editor installed.  This is going to be the basis of our testing.
 
     git clone https://github.com/lblod/frontend-rdfa-editor-demo.git
     cd frontend-rdfa-editor-demo
@@ -22,11 +24,11 @@ You can start the application running the following npm command:
 
     npm run start
 
-The command will build and start the Ember application, proxy requests to the remote backend and live-reload on changes in the source files.
+The command will build and start the Ember application, proxy requests to the remote back-end and live-reload on changes in the source files.
 
 ### Verify the App is Launched
 
-Once the build finished, visit http://localhost:4200 and view the wonder of a blank editor.
+Once the build has finished, visit http://localhost:4200 and view the wonder of a blank editor.
 
 ## Adding plugins: Detailed Tutorial
 
@@ -85,7 +87,7 @@ If we can only reuse existing plugins, then we wouldn't be fully in control.  Le
 
 #### What do I need for a plugin?
 
-A general plugin has two moving parts.  A service, which receives events and tells Say in which regoins to show hint cards; and a component for user interaction such as rendering a hint card and updating the document.
+A general plugin has two moving parts.  A service, which receives events and tells Say in which regions to show hint cards; and a component for user interaction such as rendering a hint card and updating the document.
 
 #### Generating the stub Configuration
 
@@ -121,7 +123,7 @@ With the plugin enabled, let's dive into the service.
 Our plugin's service will receive events.  When events are received, the service can update/add/remove hint cards.  Such calls are handled using the execute hook of the service.
 
 Our service is located in
-`frontend-rdfa-editor/demo/node_modules/@lblod/rdfa-editor-wikipedia-slug-plugin/addon/services/rdfa-editor-wikipedia-slug-plugin.js`.  Well, that's a very long path.  In other plugin development, your plugin would be a separate repository and you would follow the links with as root the `rdfa-editor-wikipedia-slug-plugin` folder.  Being able to clone one repository is nice though.
+`frontend-rdfa-editor-demo/node_modules/@lblod/rdfa-editor-wikipedia-slug-plugin/addon/services/rdfa-editor-wikipedia-slug-plugin.js`.  Well, that's a very long path.  In other plugin development, your plugin would be a separate repository and you would follow the links with as root the `rdfa-editor-wikipedia-slug-plugin` folder.  Being able to clone one repository is nice though.
 
 As we saw earlier, a generated service comes with a default hint card.  The service contains a single method which handles all the actions.
 
@@ -151,9 +153,8 @@ As we saw earlier, a generated service comes with a default hint card.  The serv
 From a high level the execute function goes like this:
 
   1. remove existing hints
-  2. for each context
-  3. if some property holds
-  4. add a hint card
+  2. do this for each context
+  3. if some property holds, add a hint card
 
 Each time new contexts are received, the service removes all hints and creates new hint cards on the relevant spots.
 
@@ -174,11 +175,11 @@ First things first, let's get an idea of the form of the rdfaBlocks array.  Let'
       ...
     }
 
-Opening up the developer console in the browser, you'll bee greeted with the content as you type new content.  Each block contains a bunch of information, inlcuding the semantic context.  For this demo we will simply hook into the text content.
+Opening up the developer console in the browser, you'll bee greeted with the content as you type new content.  Each block contains a bunch of information, including the semantic context.  For this demo we will simply hook into the text content.
 
 JavaScript has support for regular expressions.  Looking at the example inputs, a reasonable regular expression could be `/dbp:([\w_\-(%\d\d).]+\w)/`.  With this in our hands, we can update the matching function.
 
-Comment out the existing code in the for loop so the changes we make don't cause runtime errors.
+Comment out the existing code in the for loop so the changes we make don't cause run-time errors.
 
     for( const rdfaBlock of rdfaBlocks ){
       const match = rdfaBlock.text.match(/dbp:([\w_\-(%\d\d).]+\w)/);
@@ -217,7 +218,7 @@ Lastly, we need to add our highlight to the hintsRegistry.
 
 ##### Adding the hint Card
 
-A hint card informs the HintsRegistry wher cards should be shown.
+A hint card informs the HintsRegistry where cards should be shown.
 
 In between our calculations and the hint card being added, user input might be happening.  The HintsRegistry will help us out here based on the hrId.
 
@@ -255,7 +256,7 @@ You can find these files in:
 Looking at the card template, it still talks about "hello".  Let's update the card.  Some things to note:
 
   - You can render dynamic content between mustaches `{{ }}`
-  - You can access the imported info object starting wyth `@info`
+  - You can access the imported info object starting with `@info`
   - You can access definitions on the component under `this`
   - Arguments passed to Ember Components are prefixed with an `@`
   - You can render conditionals like `{{#if @info.term}}Yay{{else}}Nay{{/if}}`
@@ -291,7 +292,7 @@ Inserting the link is executed in three steps:
   - Select the previously highlighted area
   - Update the content of the selection
 
-Hinst can be removed by request to the HintsRegistry.  We passed this instance, the hrId and the location of our hint to this component so we can easily remove the hint:
+Hints can be removed by request to the HintsRegistry.  We passed this instance, the hrId and the location of our hint to this component so we can easily remove the hint:
 
     const info = this.args.info;
     info.hintsRegistry.removeHintsAtLocation( info.location, info.hrId, "dbp-slug-scope");
@@ -309,13 +310,13 @@ Lastly, we call the update function of the editor with this selection.  We reque
 
 That's it!  Press the button and your link should be inserted.
 
-Visiting this file you are greeted with a stub implementation for the execute function.  The documentation above indicates what information you receive, we wil use all of these in our solution.
+Visiting this file you are greeted with a stub implementation for the execute function.  The documentation above indicates what information you receive, we will use all of these in our solution.
 
 #### Enable the hint Card
 
 If everything went to plan, you can now also enable the hint card to show some details about wikipedia links.
 
-Enabling the `rdfa-editor-dbpedia-info-plugin` in `app/config/editor-profiles.js`.  After doing so, move your carret into one of the dbpedia links and you will be greated by an info card.
+Enabling the `rdfa-editor-dbpedia-info-plugin` in `app/config/editor-profiles.js`.  After doing so, move your caret into one of the dbpedia links and you will be greeted by an info card.
 
 ### Extra
 
