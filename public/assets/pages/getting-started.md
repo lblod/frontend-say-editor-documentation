@@ -1,16 +1,17 @@
-# Getting started
+# Getting Started
+Together we will enable some existing plugins and we will implement a new one. The tutorial assumes some basic knowledge of JavaScript.
 
-Welcome to this getting started tutorial! In this tutorial we will enable some existing plugins and we will implement a new one. The tutorial assumes some basic knowledge of JavaScript.
+## Introduction: How Plugins Work
 
 <div class="c-video-wrapper">
   <iframe src="https://player.vimeo.com/video/401924173" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 </div>
 
-## Setting up our environment
+## Setting up our Environment
 
 The application we are building has a backend for minimal data storage and a frontend, written in Ember, containing the editor itself. The backend is hosted on a server. The frontend will run on your local machine and connect to the remote backend.
 
-### Setting up the frontend
+### Setting up the Frontend
 
 We have prepared a frontend application with a basic editor installed.  This is going to be the basis of our testing.
 
@@ -23,11 +24,13 @@ You can start the application running the following npm command:
 
 The command will build and start the Ember application, proxy requests to the remote backend and live-reload on changes in the source files.
 
-### Verify the app is launched
+### Verify the App is Launched
 
 Once the build finished, visit http://localhost:4200 and view the wonder of a blank editor.
 
-## Add existing plugins
+## Adding plugins: Detailed Tutorial
+
+### Add Existing Plugins
 
 The editor consists of plugins that make the editor 'smart'.  Plugins understand the context you're working in and try to give smart hints to insert or update knowledge in the editor. Some plugins are domain-specific, others are more generic which make them easy to reuse.
 
@@ -37,7 +40,7 @@ Adding a plugin to the editor consists of 2 steps:
 
 Let's add a plugin to insert a date, and one to manipulate a date.
 
-### Insert a date using the date-plugin
+#### Insert a date using the date-Plugin
 
 The date-plugin allows you to insert a date with correct annotations. When you type a date in the format 'DD/MM/YYYY', e.g. 06/03/2020, a hint card will pop up, proposing to annotate the date with the appropriate RDFa tags.
 
@@ -59,7 +62,7 @@ If you save the change you've made, you will see the app reload. You should be a
 
 An annotated date \o/ !
 
-### Update a date using the date-overwrite-plugin
+#### Update a date using the date-overwrite-Plugin
 
 Inserting a date is one thing, but we should be able to update a date.  That's what the date-overwrite-plugin does. It updates the date in text as well as in the underlying RDFa annotations.
 
@@ -76,26 +79,26 @@ As with the date plugin, the `ember-rdfa-editor-date-overwrite-plugin` is alread
 
 Save your changes. The editor will reload. Insert a new date with the date-plugin. After inserting the date, click on the date that got inserted in the text. A new hint card will pop proposing to update the date. That's two enabled plugins \o/.
 
-## Let's write our own plugin!
+### Let's write our own plugin!
 
 If we can only reuse existing plugins, then we wouldn't be fully in control.  Let's write a plugin of our own.  For our new plugin, we will support the insertion of links to Wikipedia articles.  If the user types `dbp:word`, we will show a hint card proposing to insert a hyperlink to a Wikipedia article. Once the hyperlink is inserted, another plugin will show a card with a snippet from Wikipedia when the cursor is positioned in the hyperlink.
 
-### What do I need for a plugin?
+#### What do I need for a plugin?
 
 A general plugin has two moving parts.  A service, which receives events and tells Say in which regoins to show hint cards; and a component for user interaction such as rendering a hint card and updating the document.
 
-### Generating the stub configuration
+#### Generating the stub Configuration
 
 To ease the creation of plugins, there is a [plugin generator](https://github.com/lblod/ember-rdfa-editor-plugin-generator) .  You can run this in a bare Ember Addon and get the stub for your plugin out of the box.  To easen this tutorial, we have ran the plugin generation process for you.
 
 You can find the glorious sources of a new plugin in `node_modules/@lblod/ember-rdfa-editor-wikipedislug-plugin`, following the common naming strategy for plugins.  We have left the code in your node_modules folder as close as possible to that of the generated plugin, only a utility file for asking questions to dbpedia and some extra pointers to documentation.
 
-### Enabling our plugin
+#### Enabling our Plugin
 
 Like the other plugins, we need to enable them even if they are installed.  Let's do that for the two plugins we will be working on.
 
     // File: frontend-rdfa-editor-demo/app/config/editor-profiles.js
-    
+
     export default {
       default: [
         "rdfa-editor-date-plugin",
@@ -111,9 +114,9 @@ A stub service comes with a hello world implementation.  Go to the editor and ty
 
 With the plugin enabled, let's dive into the service.
 
-### Implementing the service
+#### Implementing the Service
 
-#### Discovering the plugin's service
+##### Discovering the plugin's Service
 
 Our plugin's service will receive events.  When events are received, the service can update/add/remove hint cards.  Such calls are handled using the execute hook of the service.
 
@@ -154,13 +157,13 @@ From a high level the execute function goes like this:
 
 Each time new contexts are received, the service removes all hints and creates new hint cards on the relevant spots.
 
-#### Removing earlier inputs
+##### Removing earlier Inputs
 
 We will remove all inputs and add all the relevant ones again.  The generated code in our sample is complete.
 
 Note that our cards are added and removed in the "wikipedia-slug-scope".  By supplying this identifier, we ensure we don't clash with other plugins.
 
-#### Recognizing our input
+##### Recognizing our Input
 
 We want to show a hint card whenever the user types something like `dbp:Fox` or `dbp:Booker_T._Jones`.
 
@@ -197,8 +200,8 @@ We can destructure these elements, leaving us with the following match code:
       const match = rdfaBlock.text.match(/dbp:([\w_\-(%\d\d).]+\w)/);
       if( match ) {
         const { 0: fullMatch, 1: term, index: start } = match;
-    
-#### Calculating the highlighted region
+
+##### Calculating the highlighted Region
 
 Now that we have the right content in place, we need to highlight the correct region.
 
@@ -212,7 +215,7 @@ We want the highlight to reach for the full length of our match (thus including 
 
 Lastly, we need to add our highlight to the hintsRegistry.
 
-#### Adding the hint card
+##### Adding the hint Card
 
 A hint card informs the HintsRegistry wher cards should be shown.
 
@@ -238,7 +241,7 @@ We will add `term` to the info passed to the component.  Why we need all these w
     });
 
 
-### Updating the card
+#### Updating the Card
 
 The card consists of an html template file (components/wikipedia-slug-card.hbs) and a javascript file (components/wikipedia-slug-card.js).  The template file will be rendered.  It can receive information from the javascript file and it can execute actions defined in the javascript file.
 
@@ -247,7 +250,7 @@ You can find these files in:
   - `frontend-rdfa-editor/demo/node_modules/@lblod/rdfa-editor-wikipedia-slug-plugin/addon/components/wikipedia-slug-card.hbs`
   - `frontend-rdfa-editor/demo/node_modules/@lblod/rdfa-editor-wikipedia-slug-plugin/addon/components/wikipedia-slug-card.js`
 
-#### Updating the card template
+##### Updating the card Template
 
 Looking at the card template, it still talks about "hello".  Let's update the card.  Some things to note:
 
@@ -272,7 +275,7 @@ Our card template doesn't need to much, we can updated it to
       </WuButtonGroup>
     </div>
 
-#### Calculating the link
+##### Calculating the Link
 
 The insertion of the link is executed through the component javascript file.  We will insert a link with an rdf:seeAlso property attached to it.
 
@@ -280,7 +283,7 @@ An example of such a link could be `<a href="https://en.wikipedia.org/wiki/Vehic
 
     const html = `<a href="https://en.wikipedia.org/wiki/${this.args.info.term}" property="rdf:seeAlso">${this.args.info.term}</a>`;
 
-#### Inserting the link
+##### Inserting the Link
 
 Inserting the link is executed in three steps:
 
@@ -308,24 +311,24 @@ That's it!  Press the button and your link should be inserted.
 
 Visiting this file you are greeted with a stub implementation for the execute function.  The documentation above indicates what information you receive, we wil use all of these in our solution.
 
-### Enable the hint card
+#### Enable the hint Card
 
-If everything went to plan, you can now also enable the hint card to show some details about wikipedia links.  
+If everything went to plan, you can now also enable the hint card to show some details about wikipedia links.
 
 Enabling the `rdfa-editor-dbpedia-info-plugin` in `app/config/editor-profiles.js`.  After doing so, move your carret into one of the dbpedia links and you will be greated by an info card.
 
-## Extra
+### Extra
 
-### Bonus
+#### Bonus
 
 There is a service which can search for pages on dbpedia.  You can insert this into your copmonent by importing `../utils/dbpedia-query`.
 
 Extend the card to only insert the first link that could be found.
 
-### Extra bonus
+#### Extra Bonus
 
 You can use `{{#each this.results as |value|}}...{{/each}}` to loop over each of the results.  Show a button for each of these results and let the user choose the most appropriate one.
 
-## Closing remarks
+### Closing Remarks
 
 We are constantly trying to clean up these interfaces and to make the editor more stable.  If you enjoyed this tutorial, make a plugin for something you care about and maybe help us hack the core editor as you get more acquainted.  Don't hesitate to contact us if you have a plan but are not completely sure how to best tackle it.
