@@ -17,10 +17,18 @@ The application we are building has a back-end for minimal data storage and a fr
 
 We have prepared a front-end application with a basic editor installed.  This is going to be the basis of our testing.
 
-    git clone https://github.com/lblod/frontend-rdfa-editor-demo.git
-    cd frontend-rdfa-editor-demo
+    git clone https://github.com/SchrodingersCat00/frontend-rdfa-editor-demo-v2
+    cd frontend-rdfa-editor-demo-v2
 
-You can start the application running the following npm command:
+If you haven't installed Ember.js yet, you can install it using the following command:
+
+    npm install -g ember-cli
+
+Install the required dependencies, this might take a while depending on the speed of your internet connection:
+
+    npm install
+
+After that you can start the application running the following npm command:
 
     npm run start
 
@@ -46,13 +54,16 @@ Let's add a plugin to insert a date, and one to manipulate a date.
 
 The date-plugin allows you to insert a date with correct annotations. When you type a date in the format 'DD/MM/YYYY', e.g. 06/03/2020, a hint card will pop up, proposing to annotate the date with the appropriate RDFa tags.
 
-In our demo application, the plugin `ember-rdfa-editor-date-plugin` is already installed. We just need to enable the plugin in the editor configuration in `frontend-rdfa-editor-demo/app/config/editor-profiles.js` by uncommenting the line containing `rdfa-editor-date-plugin`.
+In our demo application, the plugin `ember-rdfa-editor-date-plugin` is already installed (see `package.json`). We just need to enable the plugin in the editor configuration in `app/config/editor-profiles.js` by uncommenting the line containing `rdfa-editor-date-plugin`. This will allow the plugin to receive events from the editor.
 
-    // File: frontend-rdfa-editor-demo/app/config/editor-profiles.js
+    // File: app/config/editor-profiles.js
 
     export default {
       default: [
-        "rdfa-editor-date-plugin"
+        "rdfa-editor-date-plugin", 
+        // "rdfa-editor-date-overwrite-plugin", 
+        // "rdfa-editor-dbpedia-info-plugin", 
+        // "rdfa-editor-wikipedia-slug-plugin"
       ]
     };
 
@@ -68,14 +79,16 @@ An annotated date \o/ !
 
 Inserting a date is one thing, but we should be able to update a date.  That's what the date-overwrite-plugin does. It updates the date in text as well as in the underlying RDFa annotations.
 
-As with the date plugin, the `ember-rdfa-editor-date-overwrite-plugin` is already installed. We just need to enable the plugin in the editor configuration in `frontend-rdfa-editor-demo/app/config/editor-profiles.js` by uncommenting the line containing `rdfa-editor-date-plugin`.
+As with the date plugin, the `ember-rdfa-editor-date-overwrite-plugin` is already installed. We just need to enable the plugin in the editor configuration in `app/config/editor-profiles.js` by uncommenting the line containing `rdfa-editor-date-plugin`.
 
-    // File: frontend-rdfa-editor-demo/app/config/editor-profiles.js
+    // File: app/config/editor-profiles.js
 
     export default {
       default: [
         "rdfa-editor-date-plugin",
         "rdfa-editor-date-overwrite-plugin"
+        // "rdfa-editor-dbpedia-info-plugin", 
+        // "rdfa-editor-wikipedia-slug-plugin"
       ]
     };
 
@@ -87,13 +100,27 @@ If we can only reuse existing plugins, then we wouldn't be fully in control.  Le
 
 #### What do I need for a plugin?
 
-A general plugin has two moving parts.  A service, which receives events and tells Say in which regions to show hint cards; and a component for user interaction such as rendering a hint card and updating the document.
+A general plugin has two moving parts.  A service, which receives events and tells Say which regions to highlight; and a UI component for user interaction.
+
+info:
+A component is a ......
+In this case we are using Ember components and services.
 
 #### Generating the stub Configuration
 
-To ease the creation of plugins, there is a [plugin generator](https://github.com/lblod/ember-rdfa-editor-plugin-generator) .  You can run this in a bare Ember Addon and get the stub for your plugin out of the box.  To easen this tutorial, we have ran the plugin generation process for you.
+To ease the creation of plugins, there is a [plugin generator](https://github.com/lblod/ember-rdfa-editor-plugin-generator) .  You can run this in a bare Ember Addon and get the stub for your plugin out of the box.  To easen this tutorial, we have ran the plugin generation process for you. For your convenience, we've decided to use an Ember [in-repo-addon](https://cli.emberjs.com/release/writing-addons/in-repo-addons/). This simply means that the plugin code is already included and is located in `lib` instead of `node_modules`.
 
-You can find the glorious sources of a new plugin in `node_modules/@lblod/ember-rdfa-editor-wikipedislug-plugin`, following the common naming strategy for plugins.  We have left the code in your node_modules folder as close as possible to that of the generated plugin, only a utility file for asking questions to dbpedia and some extra pointers to documentation.
+The code for the plugin can be found in `lib/ember-rdfa-editor-wikipedia-slug-plugin`. We have left the code in this folder as close as possible to that of the generated plugin. The file tree of the plugin looks as follows:
+
+    ├───addon
+    │   ├───components
+    │   ├───services
+    │   └───utils
+    └───app
+        ├───components
+        └───services
+
+We will mostly be working in the `addon` folder. `addon/components` will contain the UI components, `addon/services` will contain the services that receive and handle the events sent by the editor and lastly, `addon/utils` contains some utility functions that will come in handy when requesting data from wikipedia later in this tutorial.
 
 #### Enabling our Plugin
 
@@ -123,31 +150,33 @@ With the plugin enabled, let's dive into the service.
 Our plugin's service will receive events.  When events are received, the service can update/add/remove hint cards.  Such calls are handled using the execute hook of the service.
 
 Our service is located in
-`frontend-rdfa-editor-demo/node_modules/@lblod/rdfa-editor-wikipedia-slug-plugin/addon/services/rdfa-editor-wikipedia-slug-plugin.js`.  Well, that's a very long path.  In other plugin development, your plugin would be a separate repository and you would follow the links with as root the `rdfa-editor-wikipedia-slug-plugin` folder.  Being able to clone one repository is nice though.
+`lib/rdfa-editor-wikipedia-slug-plugin/addon/services/rdfa-editor-wikipedia-slug-plugin.js`.
 
 As we saw earlier, a generated service comes with a default hint card.  The service contains a single method which handles all the actions.
 
     execute(hrId, rdfaBlocks, hintsRegistry, editor) {
-      hintsRegistry.removeHintsForRdfaBlocks( rdfaBlocks, hrId, "wikipedia-slug-scope");
+        hintsRegistry.removeHintsInRdfaBlocks(rdfaBlocks, hrId, COMPONENT_ID);
 
-      for( const rdfaBlock of rdfaBlocks ){
-        let idx = rdfaBlock.text.toLowerCase().indexOf('hello');
-        if( idx !== -1 ) {
-          // the hintsregistry needs to know the location with respect to the document
-          const absoluteLocation = normalizeLocation( [idx, idx + 'hello'.length], rdfaBlock.region );
-
-          hintsRegistry.addHint( hrId, "wikipedia-slug-scope", {
-            // info for the hintsRegistry
-            location: absoluteLocation,
-            card: "editor-plugins/wikipedia-slug-card",
-            // any content you need to render the component and handle its actions
-            info: {
-              hrId, hintsRegistry, editor,
-              location: absoluteLocation,
+        for (const rdfaBlock of rdfaBlocks) {
+            let idx = rdfaBlock.text.toLowerCase().indexOf('hello');
+            if (idx !== -1) {
+                // the hintsregistry needs to know the location with respect to the document
+                const absoluteLocation = normalizeLocation(
+                    [idx, idx + 'hello'.length], 
+                    rdfaBlock.region
+                );
+                hintsRegistry.addHint(hrId, COMPONENT_ID, {
+                    // info for the hintsRegistry
+                    location: absoluteLocation,
+                    card: COMPONENT_ID,
+                    // any content you need to render the component and handle its actions
+                    info: {
+                        hrId, hintsRegistry, editor,
+                        location: absoluteLocation
+                    }
+                });
             }
-          });
         }
-      }
     }
 
 From a high level the execute function goes like this:
@@ -166,16 +195,15 @@ Note that our cards are added and removed in the "wikipedia-slug-scope".  By sup
 
 ##### Recognizing our Input
 
-We want to show a hint card whenever the user types something like `dbp:Fox` or `dbp:Booker_T._Jones`.
+Having a card greet us is fun, but it's not very useful. We will now add functionality to show a hint card whenever the user types something like `dbp:Fox` or `dbp:Booker_T._Jones`. Will start fresh  by removing the body of the for loop.
 
 First things first, let's get an idea of the form of the rdfaBlocks array.  Let's put a `console.log` at the top of our execute function to get a clue what we are working with.
 
     execute(hrId, rdfaBlocks, hintsRegistry, editor) {
       console.log( rdfaBlocks );
-      ...
     }
 
-Opening up the developer console in the browser, you'll bee greeted with the content as you type new content.  Each block contains a bunch of information, including the semantic context.  For this demo we will simply hook into the text content.
+Opening up the developer console in the browser, you'll be greeted with the blocks as you type new content.  Each block contains a bunch of information, including the semantic context.  For this demo we will simply hook into the text content.
 
 JavaScript has support for regular expressions.  Looking at the example inputs, a reasonable regular expression could be `/dbp:([\w_\-(%\d\d).]+\w)/`.  With this in our hands, we can update the matching function.
 
@@ -185,7 +213,8 @@ Comment out the existing code in the for loop so the changes we make don't cause
       const match = rdfaBlock.text.match(/dbp:([\w_\-(%\d\d).]+\w)/);
       if( match ) {
         console.log("We have a match");
-        ...
+      }
+    }
 
 With this in place, if you type a slug, we should see that we have a match for things like `dbp:Fox` or even more complex examples.
 
@@ -201,55 +230,119 @@ We can destructure these elements, leaving us with the following match code:
       const match = rdfaBlock.text.match(/dbp:([\w_\-(%\d\d).]+\w)/);
       if( match ) {
         const { 0: fullMatch, 1: term, index: start } = match;
+        ...
 
 ##### Calculating the highlighted Region
 
 Now that we have the right content in place, we need to highlight the correct region.
 
-The HintsRegistry maintains the hint cards and handles async behaviour with respect to their position.  It makes an educated guess to update highlights or selected regions based on user input.  For this approach to work, we receive an `hrId` which indicates the state of our document at the time in which the execute hook was scheduled.
+The HintsRegistry maintains the hint cards and handles async behaviour with respect to their position.  It makes an educated guess to update highlights or selected regions based on user input.  For this approach to work, we receive an HintsRegistryId `hrId` which indicates the state of our document at the time in which the execute hook was scheduled.
 
-The hintsRegistry expects the location in which we want to position the card.  The absolute position is calculated by checking the start position of our rdfaBlock and adding the relative position of the match to it.  A helper function is offered for this calculation.
+The hintsRegistry expects the location in which we want to position the card.  The absolute position is calculated by checking the start position of our rdfaBlock and adding the relative position of the match to it.  The helper function `normalizeLocation` is provided for this calculation.
 
 We want the highlight to reach for the full length of our match (thus including dbp).  The target location is thus calculated as:
 
     const location = normalizeLocation( [ start, start + fullMatch.length ], rdfaBlock.region );
 
-Lastly, we need to add our highlight to the hintsRegistry.
-
 ##### Adding the hint Card
-
-A hint card informs the HintsRegistry where cards should be shown.
+Lastly, we need to add our highlight to the hintsRegistry. A hint card informs the HintsRegistry where cards should be shown.
 
 In between our calculations and the hint card being added, user input might be happening.  The HintsRegistry will help us out here based on the hrId.
 
 The HintsRegistry needs to know:
 
-  - At which state we are: the `hrid`
+  - At which document state we are: the `hrid`
   - The scope of our changes: `wikipedia-slug-scope`
   - Where to show the highlight: `location`,
-  - Which card to render: `editor-plugins/wikipedia-slug-card`
+  - Which card to render: `rdfa-editor-wikipedia-slug-card` (located in `addon/components`)
   - Which info to pass to the card: anything in the `info` property
 
 We will add `term` to the info passed to the component.  Why we need all these will be clear when we implement the card.  The code to add the hint thus becomes:
 
 
-    hintsRegistry.addHint( hrId, "dbp-slug-scope", {
+    hintsRegistry.addHint( hrId, "wikipedia-slug-scope", {
       location,
-      card: "editor-plugins/wikipedia-slug-card",
+      card: "rdfa-editor-wikipedia-slug-card",
       info: {
         hrId, hintsRegistry, editor, location, term
       }
     });
 
 
+##### Calculating the Link
+
+The insertion of the link is executed through the component javascript file. This file can be found at `addon/components/rdfa-editor-wikipedia-slug-card.js` and looks as follows:
+
+    export default class RdfaEditorWikipediaSlugCardComponent extends Component {
+
+    }
+
+This is currently only a skeleton Component class, ready to be filled with some awesome code.
+We will insert a link with an `rdf:seeAlso` property attached to it. An example of such a link could be `<a href="https://en.wikipedia.org/wiki/Vehicle" property="rdf:seeAlso">Vehicle</a>`.  We passed the term (`"vehicle"` in this case) through the info hash. We will execute a query to find results. For this we will add a class method:
+
+    async getDbpediaOptions() {
+      this.loading = true;
+      const solutions = await dbpediaQuery(this.args.info.term);
+      this.solution = solutions.length ? solutions[0] : 0;
+      this.loading = false;
+    }
+
+This method relies on two properties `solution` and `loading`, we will add them as well.
+
+    @tracked solution = null;
+    @tracked loading = false;
+
+Note: TODO explain `tracked` decorator
+
+We will also add a constructor in which this method is called:
+
+    constructor() {
+      super(...arguments);
+      this.getDbpediaOptions();
+    }
+
+Next we create a method that will create the correct link:
+
+    createLink(){
+      const url = `https://en.wikipedia.org/wiki/${encodeURI(this.solution)}`;
+      return `<a href="${url}" property="rdf:seeAlso">${this.solution}</a>&nbsp;`;
+    }
+
+##### Inserting the Link
+
+We will write the functionality to actually insert a link. For this we will add a class method `insert`.
+
+    @action
+    insert() {
+
+    }
+
+Note that we used the `@action` decorator. TODO: explain why.
+
+Inserting the link is executed in three steps:
+
+  - Remove the hints in our region
+  - Select the previously highlighted area
+  - Update the content of the selection
+
+Hints can be removed by request to the HintsRegistry.  We passed this instance, the hrId and the location of our hint to this component so we can easily remove the hint:
+
+    const info = this.args.info;
+    info.hintsRegistry.removeHintsAtLocation( info.location, info.hrId, "wikipedia-slug-scope");
+
+Next up, we have to select the region of our text to operate on.
+
+    const selection = info.editor.selectHighlight(info.location);
+
+Lastly, we call the update function of the editor with this selection.  We request the editor to insert some HTML
+
+    info.editor.update( selection, {
+      set: { innerHTML: this.createLink() }
+    });
+
 #### Updating the Card
 
-The card consists of an html template file (components/wikipedia-slug-card.hbs) and a javascript file (components/wikipedia-slug-card.js).  The template file will be rendered.  It can receive information from the javascript file and it can execute actions defined in the javascript file.
-
-You can find these files in:
-
-  - `frontend-rdfa-editor/demo/node_modules/@lblod/rdfa-editor-wikipedia-slug-plugin/addon/components/wikipedia-slug-card.hbs`
-  - `frontend-rdfa-editor/demo/node_modules/@lblod/rdfa-editor-wikipedia-slug-plugin/addon/components/wikipedia-slug-card.js`
+The card consists of an html template file (`addon/components/rdfa-editor-wikipedia-slug-card.hbs`) and a javascript file (`addon/components/rdfa-editor-wikipedia-slug-card.js`).  The template file will be rendered.  It can receive information from the javascript file and it can execute actions defined in the javascript file.
 
 ##### Updating the card Template
 
@@ -261,52 +354,33 @@ Looking at the card template, it still talks about "hello".  Let's update the ca
   - Arguments passed to Ember Components are prefixed with an `@`
   - You can render conditionals like `{{#if @info.term}}Yay{{else}}Nay{{/if}}`
 
-Our card template doesn't need to much, we can updated it to
+Our card template doesn't need to much, we can update it to
+    
+    {{!-- addon/components/rdfa-editor-wikipedia-slug-card.js --}}
 
     <div class="modal-dialog__content">
       <p class="u-spacer--tiny">
-        Insert link to wikipedia?
+        Wikipedia link hint
         <br>
-        <strong>Do you want to insert a link to {{@info.term}}?</strong>
+        {{#if this.loading}}
+          <br><strong>...looking up articles...</strong>
+        {{else}}
+          {{#if this.solution}}
+            <strong>Do you want to insert a link to {{this.solution}}?</strong>
+          {{else}}
+            <strong>No article found for {{@info.term}}</strong>
+          {{/if}}
+        {{/if}}
       </p>
     </div>
-    <div class="modal-dialog__footer">
-      <WuButtonGroup>
-        <WuButton @label="Yes" @size="small" @isNarrow={{true}} @commandLocation="below" @onClick={{this.insert}} />
-      </WuButtonGroup>
-    </div>
+    {{#if this.solution}}
+      <div class="modal-dialog__footer">
+        <WuButtonGroup>
+          <WuButton @label="Yes" @size="small" @isNarrow={{true}} @commandLocation="below" @onClick={{this.insert}} />
+        </WuButtonGroup>
+      </div>
+    {{/if}}
 
-##### Calculating the Link
-
-The insertion of the link is executed through the component javascript file.  We will insert a link with an rdf:seeAlso property attached to it.
-
-An example of such a link could be `<a href="https://en.wikipedia.org/wiki/Vehicle" property="rdf:seeAlso">Vehicle</a>`.  We passed the term (`"Vehicle"` in this case) through the info hash.  We insert a space at the end so the cursor can easily move outside of the hint.
-
-    const html = `<a href="https://en.wikipedia.org/wiki/${this.args.info.term}" property="rdf:seeAlso">${this.args.info.term}</a>`;
-
-##### Inserting the Link
-
-Inserting the link is executed in three steps:
-
-  - Remove the hints in our region
-  - Select the previously highlighted area
-  - Update the content of the selection
-
-Hints can be removed by request to the HintsRegistry.  We passed this instance, the hrId and the location of our hint to this component so we can easily remove the hint:
-
-    const info = this.args.info;
-    info.hintsRegistry.removeHintsAtLocation( info.location, info.hrId, "dbp-slug-scope");
-
-Next up, we have to select the region of our text to operate on.  For this to happen correctly, we first update our selected region to the latest state of the editor.  Then we select the highlight of that region.
-
-    const mappedLocation = info.hintsRegistry.updateLocationToCurrentIndex(info.hrId, info.location);
-    const selection = info.editor.selectHighlight( mappedLocation );
-
-Lastly, we call the update function of the editor with this selection.  We request the editor to insert some HTML
-
-    info.editor.update( selection, {
-      set: { innerHTML: html }
-    });
 
 That's it!  Press the button and your link should be inserted.
 
@@ -322,7 +396,7 @@ Enabling the `rdfa-editor-dbpedia-info-plugin` in `app/config/editor-profiles.js
 
 #### Bonus
 
-There is a service which can search for pages on dbpedia.  You can insert this into your copmonent by importing `../utils/dbpedia-query`.
+There is a service which can search for pages on dbpedia.  You can insert this into your component by importing `../utils/dbpedia-query`.
 
 Extend the card to only insert the first link that could be found.
 
