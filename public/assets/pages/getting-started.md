@@ -60,9 +60,9 @@ In our demo application, the plugin `ember-rdfa-editor-date-plugin` is already i
 
     export default {
       default: [
-        "rdfa-editor-date-plugin", 
-        // "rdfa-editor-date-overwrite-plugin", 
-        // "rdfa-editor-dbpedia-info-plugin", 
+        "rdfa-editor-date-plugin",
+        // "rdfa-editor-date-overwrite-plugin",
+        // "rdfa-editor-dbpedia-info-plugin",
         // "rdfa-editor-wikipedia-slug-plugin"
       ]
     };
@@ -87,7 +87,7 @@ As with the date plugin, the `ember-rdfa-editor-date-overwrite-plugin` is alread
       default: [
         "rdfa-editor-date-plugin",
         "rdfa-editor-date-overwrite-plugin"
-        // "rdfa-editor-dbpedia-info-plugin", 
+        // "rdfa-editor-dbpedia-info-plugin",
         // "rdfa-editor-wikipedia-slug-plugin"
       ]
     };
@@ -102,13 +102,14 @@ If we can only reuse existing plugins, then we wouldn't be fully in control.  Le
 
 A general plugin has two moving parts.  A service, which receives events and tells Say which regions to highlight; and a UI component for user interaction.
 
+TODO
 info:
 A component is a ......
 In this case we are using Ember components and services.
 
 #### Generating the stub Configuration
 
-To ease the creation of plugins, there is a [plugin generator](https://github.com/lblod/ember-rdfa-editor-plugin-generator) .  You can run this in a bare Ember Addon and get the stub for your plugin out of the box.  To easen this tutorial, we have ran the plugin generation process for you. For your convenience, we've decided to use an Ember [in-repo-addon](https://cli.emberjs.com/release/writing-addons/in-repo-addons/). This simply means that the plugin code is already included and is located in `lib` instead of `node_modules`.
+To ease the creation of plugins, there is a [plugin generator](https://github.com/lblod/ember-rdfa-editor-plugin-generator) .  You can run this in a bare Ember Addon and get the stub for your plugin out of the box.  To easen this tutorial, we have ran the plugin generation process for you. In this case, we've decided to use an Ember [in-repo-addon](https://cli.emberjs.com/release/writing-addons/in-repo-addons/). This simply means that the plugin code is already included and is located in `lib` instead of `node_modules`.
 
 The code for the plugin can be found in `lib/ember-rdfa-editor-wikipedia-slug-plugin`. We have left the code in this folder as close as possible to that of the generated plugin. The file tree of the plugin looks as follows:
 
@@ -162,7 +163,7 @@ As we saw earlier, a generated service comes with a default hint card.  The serv
             if (idx !== -1) {
                 // the hintsregistry needs to know the location with respect to the document
                 const absoluteLocation = normalizeLocation(
-                    [idx, idx + 'hello'.length], 
+                    [idx, idx + 'hello'.length],
                     rdfaBlock.region
                 );
                 hintsRegistry.addHint(hrId, COMPONENT_ID, {
@@ -195,19 +196,20 @@ Note that our cards are added and removed in the "wikipedia-slug-scope".  By sup
 
 ##### Recognizing our Input
 
-Having a card greet us is fun, but it's not very useful. We will now add functionality to show a hint card whenever the user types something like `dbp:Fox` or `dbp:Booker_T._Jones`. Will start fresh  by removing the body of the for loop.
+Having a card greet us is fun, but it's not very useful. We will now add functionality to show a hint card whenever the user types something like `dbp:Fox` or `dbp:Booker_T._Jones`.
 
 First things first, let's get an idea of the form of the rdfaBlocks array.  Let's put a `console.log` at the top of our execute function to get a clue what we are working with.
 
     execute(hrId, rdfaBlocks, hintsRegistry, editor) {
       console.log( rdfaBlocks );
+      ...
     }
 
 Opening up the developer console in the browser, you'll be greeted with the blocks as you type new content.  Each block contains a bunch of information, including the semantic context.  For this demo we will simply hook into the text content.
 
 JavaScript has support for regular expressions.  Looking at the example inputs, a reasonable regular expression could be `/dbp:([\w_\-(%\d\d).]+\w)/`.  With this in our hands, we can update the matching function.
 
-Comment out the existing code in the for loop so the changes we make don't cause run-time errors.
+Comment out or remove the existing code in the for loop so the changes we make don't cause run-time errors.
 
     for( const rdfaBlock of rdfaBlocks ){
       const match = rdfaBlock.text.match(/dbp:([\w_\-(%\d\d).]+\w)/);
@@ -355,7 +357,7 @@ Looking at the card template, it still talks about "hello".  Let's update the ca
   - You can render conditionals like `{{#if @info.term}}Yay{{else}}Nay{{/if}}`
 
 Our card template doesn't need to much, we can update it to
-    
+
     {{!-- addon/components/rdfa-editor-wikipedia-slug-card.js --}}
 
     <div class="modal-dialog__content">
