@@ -1,5 +1,5 @@
 # Getting Started
-Together we will enable some existing plugins and we will implement a new one. The tutorial assumes some basic knowledge of JavaScript.
+Together we will enable some existing plugins and we will implement a new one. The tutorial assumes some basic knowledge of JavaScript. Some knowledge about [ember.js](https://emberjs.com/) can be useful but should not be required.
 
 ## Introduction: How Plugins Work
 
@@ -102,10 +102,7 @@ If we can only reuse existing plugins, then we wouldn't be fully in control.  Le
 
 A general plugin has two moving parts.  A service, which receives events and tells Say which regions to highlight; and a UI component for user interaction.
 
-TODO
-info:
-A component is a ......
-In this case we are using Ember components and services.
+**note:** A component is a reusable UI element, that has some behavior associated with it. In this case we are using Ember [components](https://guides.emberjs.com/release/components/introducing-components/) and [services](https://guides.emberjs.com/release/services/).
 
 #### Generating the stub Configuration
 
@@ -294,7 +291,7 @@ This method relies on two properties `solution` and `loading`, we will add them 
     @tracked solution = null;
     @tracked loading = false;
 
-Note: TODO explain `tracked` decorator
+**note:** The tracked decorator is used to tell the framework that it needs to update the UI when the value of the variable changes.
 
 We will also add a constructor in which this method is called:
 
