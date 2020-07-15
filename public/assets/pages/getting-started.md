@@ -57,7 +57,7 @@ The date-plugin allows you to insert a date with correct annotations. When you t
 In our demo application, the plugin `ember-rdfa-editor-date-plugin` is already installed (see `package.json`). We just need to enable the plugin in the editor configuration in `app/config/editor-profiles.js` by uncommenting the line containing `rdfa-editor-date-plugin`. This will allow the plugin to receive events from the editor.
 
     // File: app/config/editor-profiles.js
-
+    
     export default {
       default: [
         "rdfa-editor-date-plugin",
@@ -82,7 +82,7 @@ Inserting a date is one thing, but we should be able to update a date.  That's w
 As with the date plugin, the `ember-rdfa-editor-date-overwrite-plugin` is already installed. We just need to enable the plugin in the editor configuration in `app/config/editor-profiles.js` by uncommenting the line containing `rdfa-editor-date-plugin`.
 
     // File: app/config/editor-profiles.js
-
+    
     export default {
       default: [
         "rdfa-editor-date-plugin",
@@ -102,11 +102,11 @@ If we can only reuse existing plugins, then we wouldn't be fully in control.  Le
 
 A general plugin has two moving parts.  A service, which receives events and tells Say which regions to highlight; and a UI component for user interaction.
 
-**note:** A component is a reusable UI element, that has some behavior associated with it. In this case we are using Ember [components](https://guides.emberjs.com/release/components/introducing-components/) and [services](https://guides.emberjs.com/release/services/).
+**note:** A component is a reusable UI element, that has some behaviour associated with it. In this case we are using Ember [components](https://guides.emberjs.com/release/components/introducing-components/) and [services](https://guides.emberjs.com/release/services/).
 
 #### Generating the stub Configuration
 
-To ease the creation of plugins, there is a [plugin generator](https://github.com/lblod/ember-rdfa-editor-plugin-generator) .  You can run this in a bare Ember Addon and get the stub for your plugin out of the box.  To easen this tutorial, we have ran the plugin generation process for you. In this case, we've decided to use an Ember [in-repo-addon](https://cli.emberjs.com/release/writing-addons/in-repo-addons/). This simply means that the plugin code is already included and is located in `lib` instead of `node_modules`.
+To ease the creation of plugins, there is a [plugin generator](https://github.com/lblod/ember-rdfa-editor-plugin-generator) .  You can run this in a bare Ember Addon and get the stub for your plugin out of the box.  To ease this tutorial, we have ran the plugin generation process for you. In this case, we've decided to use an Ember [in-repo-addon](https://cli.emberjs.com/release/writing-addons/in-repo-addons/). This simply means that the plugin code is already included and is located in `lib` instead of `node_modules`.
 
 The code for the plugin can be found in `lib/ember-rdfa-editor-wikipedia-slug-plugin`. We have left the code in this folder as close as possible to that of the generated plugin. The file tree of the plugin looks as follows:
 
@@ -118,14 +118,14 @@ The code for the plugin can be found in `lib/ember-rdfa-editor-wikipedia-slug-pl
         ├───components
         └───services
 
-We will mostly be working in the `addon` folder. `addon/components` will contain the UI components, `addon/services` will contain the services that receive and handle the events sent by the editor and lastly, `addon/utils` contains some utility functions that will come in handy when requesting data from wikipedia later in this tutorial.
+We will mostly be working in the `addon` folder. `addon/components` will contain the UI components, `addon/services` will contain the services that receive and handle the events sent by the editor and lastly, `addon/utils` contains some utility functions that will come in handy when requesting data from Wikipedia later in this tutorial.
 
 #### Enabling our Plugin
 
 Like the other plugins, we need to enable them even if they are installed.  Let's do that for the two plugins we will be working on.
 
     // File: frontend-rdfa-editor-demo/app/config/editor-profiles.js
-
+    
     export default {
       default: [
         "rdfa-editor-date-plugin",
@@ -154,7 +154,7 @@ As we saw earlier, a generated service comes with a default hint card.  The serv
 
     execute(hrId, rdfaBlocks, hintsRegistry, editor) {
         hintsRegistry.removeHintsInRdfaBlocks(rdfaBlocks, hrId, COMPONENT_ID);
-
+    
         for (const rdfaBlock of rdfaBlocks) {
             let idx = rdfaBlock.text.toLowerCase().indexOf('hello');
             if (idx !== -1) {
@@ -237,14 +237,14 @@ Now that we have the right content in place, we need to highlight the correct re
 
 The HintsRegistry maintains the hint cards and handles async behaviour with respect to their position.  It makes an educated guess to update highlights or selected regions based on user input.  For this approach to work, we receive an HintsRegistryId `hrId` which indicates the state of our document at the time in which the execute hook was scheduled.
 
-The hintsRegistry expects the location in which we want to position the card.  The absolute position is calculated by checking the start position of our rdfaBlock and adding the relative position of the match to it.  The helper function `normalizeLocation` is provided for this calculation.
+The HintsRegistry expects the location in which we want to position the card.  The absolute position is calculated by checking the start position of our rdfaBlock and adding the relative position of the match to it.  The helper function `normalizeLocation` is provided for this calculation.
 
 We want the highlight to reach for the full length of our match (thus including dbp).  The target location is thus calculated as:
 
     const location = normalizeLocation( [ start, start + fullMatch.length ], rdfaBlock.region );
 
 ##### Adding the hint Card
-Lastly, we need to add our highlight to the hintsRegistry. A hint card informs the HintsRegistry where cards should be shown.
+Lastly, we need to add our highlight to the HintsRegistry. A hint card informs the HintsRegistry where cards should be shown.
 
 In between our calculations and the hint card being added, user input might be happening.  The HintsRegistry will help us out here based on the hrId.
 
@@ -273,7 +273,7 @@ We will add `term` to the info passed to the component.  Why we need all these w
 The insertion of the link is executed through the component javascript file. This file can be found at `addon/components/rdfa-editor-wikipedia-slug-card.js` and looks as follows:
 
     export default class RdfaEditorWikipediaSlugCardComponent extends Component {
-
+    
     }
 
 This is currently only a skeleton Component class, ready to be filled with some awesome code.
@@ -313,7 +313,7 @@ We will write the functionality to actually insert a link. For this we will add 
 
     @action
     insert() {
-
+    
     }
 
 Note that we used the `@action` decorator. TODO: explain why.
@@ -356,7 +356,7 @@ Looking at the card template, it still talks about "hello".  Let's update the ca
 Our card template doesn't need to much, we can update it to
 
     {{!-- addon/components/rdfa-editor-wikipedia-slug-card.js --}}
-
+    
     <div class="modal-dialog__content">
       <p class="u-spacer--tiny">
         Wikipedia link hint
