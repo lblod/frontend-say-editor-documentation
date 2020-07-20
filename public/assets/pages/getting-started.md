@@ -316,7 +316,7 @@ We will write the functionality to actually insert a link. For this we will add 
     
     }
 
-Note that we used the `@action` decorator. This is required for us to be able to call it from the template when the button is pressed.
+Note that we used the `@action` decorator. This is required for us to be able to call it from the template when the button is pressed. See [Ember.js actions](https://guides.emberjs.com/release/components/component-state-and-actions/#toc_html-modifiers-and-actions)
 
 Inserting the link is executed in three steps:
 
