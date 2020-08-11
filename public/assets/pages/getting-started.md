@@ -17,7 +17,7 @@ The application we are building has a back-end for minimal data storage and a fr
 
 We have prepared a front-end application with a basic editor installed.  This is going to be the basis of our testing.
 
-    git clone https://github.com/SchrodingersCat00/frontend-rdfa-editor-demo-v2
+    git clone https://github.com/lblod/frontend-rdfa-editor-demo-v2
     cd frontend-rdfa-editor-demo-v2
 
 If you haven't installed Ember.js yet, you can install it using the following command:
@@ -195,7 +195,7 @@ Note that our cards are added and removed in the "wikipedia-slug-scope".  By sup
 
 Having a card greet us is fun, but it's not very useful. We will now add functionality to show a hint card whenever the user types something like `dbp:Fox` or `dbp:Booker_T._Jones`.
 
-First things first, let's get an idea of the form of the rdfaBlocks array.  Let's put a `console.log` at the top of our execute function to get a clue what we are working with.
+First things first, let's get an idea of the form of the `rdfaBlocks` array.  Let's put a `console.log` at the top of our execute function to get a clue what we are working with.
 
     execute(hrId, rdfaBlocks, hintsRegistry, editor) {
       console.log( rdfaBlocks );
@@ -235,7 +235,7 @@ We can destructure these elements, leaving us with the following match code:
 
 Now that we have the right content in place, we need to highlight the correct region.
 
-The HintsRegistry maintains the hint cards and handles async behaviour with respect to their position.  It makes an educated guess to update highlights or selected regions based on user input.  For this approach to work, we receive an HintsRegistryId `hrId` which indicates the state of our document at the time in which the execute hook was scheduled.
+The HintsRegistry maintains the hint cards and handles async behaviour with respect to their position.  It makes an educated guess to update highlights or selected regions based on user input.  For this approach to work, we receive a HintsRegistryId `hrId` which indicates the state of our document at the time in which the execute hook was scheduled.
 
 The HintsRegistry expects the location in which we want to position the card.  The absolute position is calculated by checking the start position of our rdfaBlock and adding the relative position of the match to it.  The helper function `normalizeLocation` is provided for this calculation.
 
@@ -244,13 +244,14 @@ We want the highlight to reach for the full length of our match (thus including 
     const location = normalizeLocation( [ start, start + fullMatch.length ], rdfaBlock.region );
 
 ##### Adding the hint Card
+
 Lastly, we need to add our highlight to the HintsRegistry. A hint card informs the HintsRegistry where cards should be shown.
 
-In between our calculations and the hint card being added, user input might be happening.  The HintsRegistry will help us out here based on the hrId.
+In between our calculations and the hint card being added, user input might be happening.  The HintsRegistry will help us out here based on the `hrId`.
 
 The HintsRegistry needs to know:
 
-  - At which document state we are: the `hrid`
+  - At which document state we are: the `hrId`
   - The scope of our changes: `wikipedia-slug-scope`
   - Where to show the highlight: `location`,
   - Which card to render: `rdfa-editor-wikipedia-slug-card` (located in `addon/components`)
@@ -316,7 +317,7 @@ We will write the functionality to actually insert a link. For this we will add 
     
     }
 
-Note that we used the `@action` decorator. This is required for us to be able to call it from the template when the button is pressed. See [Ember.js actions](https://guides.emberjs.com/release/components/component-state-and-actions/#toc_html-modifiers-and-actions)
+**note**: the `@action` decorator is required for us to be able to call a method from the template when the button is pressed. See [Ember.js actions](https://guides.emberjs.com/release/components/component-state-and-actions/#toc_html-modifiers-and-actions)
 
 Inserting the link is executed in three steps:
 
@@ -333,7 +334,7 @@ Next up, we have to select the region of our text to operate on.
 
     const selection = info.editor.selectHighlight(info.location);
 
-Lastly, we call the update function of the editor with this selection.  We request the editor to insert some HTML
+Lastly, we call the update function of the editor with this selection.  We request the editor to insert some HTML.
 
     info.editor.update( selection, {
       set: { innerHTML: this.createLink() }
@@ -382,8 +383,6 @@ Our card template doesn't need to much, we can update it to
 
 
 That's it!  Press the button and your link should be inserted.
-
-Visiting this file you are greeted with a stub implementation for the execute function.  The documentation above indicates what information you receive, we will use all of these in our solution.
 
 #### Enable the hint Card
 
