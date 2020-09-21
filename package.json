@@ -53,6 +53,7 @@
     "ember-data": "github:emberjs/data#1df833396855d956b817540923dd89338463fec2",
     "ember-decorators": "^6.0.0",
     "ember-export-application-global": "^2.0.0",
+    "ember-fetch": "^8.0.2",
     "ember-font-awesome": "^4.0.0-rc.4",
     "ember-load-initializers": "^2.0.0",
     "ember-maybe-import-regenerator": "^0.1.6",
