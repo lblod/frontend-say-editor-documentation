@@ -1,6 +1,7 @@
 <div class="layout-default">
   {{#bulma-nav hasShadow=true isSpaced=true class="navbar"}}
-    <div class="container">
+    <header class="container">
+      <NavigationNarrator/>
       <div class="navbar-brand">
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 577.4 109.5" xml:space="preserve" width="130">
           <title>Logo for Semantics at Your Fingertips</title>
@@ -42,7 +43,7 @@
         </span>
         {{/bulma-nav-right}}  --}}
       </div>
-    </div>
+    </header>
 
     {{#if this.toggleNav}}
       {{#bulma-panel isHiddenDesktop=true isHiddenTablet=false isHiddenWidescreen=true class="navbar-mobile"}}
@@ -56,6 +57,7 @@
 
   {{outlet}}
 </div>
+
 {{#bulma-footer}}
   <div class="columns">
     <div class="column is-mobile-6 is-3-desktop is-3-tablet">
@@ -79,6 +81,13 @@
       <ul>
         <li><a href="mailto:digitaalabb@kb.vlaanderen.be">Support</a></li>
         <li><a href="https://github.com/lblod" target="_blank" rel="noopener">Github</a></li>
+      </ul>
+      <br>
+      <p>
+        Legal
+      </p>
+      <ul>
+        <li>{{link-to "Accessibility statement" "legal.accessibility-statement"}}</li>
       </ul>
     </div>
     <div class="column is-12-mobile is-5-tablet is-5-desktop">

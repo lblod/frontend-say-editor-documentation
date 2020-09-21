@@ -27,6 +27,7 @@
     "babel-eslint": "^8.2.6",
     "broccoli-asset-rev": "^3.0.0",
     "bulma": "^0.7.4",
+    "ember-a11y-refocus": "^1.0.0",
     "ember-auto-import": "^1.2.20",
     "ember-bulma": "^0.4.3",
     "ember-cli": "github:ember-cli/ember-cli#52184d9ee8a9304faf5156db39c03e2dc333f77b",
