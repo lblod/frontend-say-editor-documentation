@@ -34,6 +34,9 @@ Router.map(function() {
   this.route('about');
 
   this.route('implementations', function() {});
+  this.route('legal', function() {
+    this.route('accessibility-statement');
+  });
 });
 
 export default Router;
