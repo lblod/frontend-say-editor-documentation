@@ -37,27 +37,27 @@
     {{/each}}
     <li><a href="/code/" target="_blank" rel="noopener"> API documentation </a> </li>
   {{/bulma-menu-list}}
-    {{#bulma-menu-list label="Plugins"}}
-      {{#each this.plugins as |plugin|}}
-        <li>
-          {{link-to plugin.label "docs.plugins.from-repository" plugin.namespace plugin.repository activeClass="is-active" }}
-        </li>
-      {{/each}}
-    {{/bulma-menu-list}}
-    {{#bulma-menu-list label="LBLOD Specific plugins"}}
-      {{#each this.lblodPlugins as |plugin|}}
-        <li>
-          {{link-to plugin.label "docs.plugins.from-repository" plugin.namespace plugin.repository activeClass="is-active"}}
-        </li>
-      {{/each}}
-    {{/bulma-menu-list}}
+  {{#bulma-menu-list label="Plugins"}}
+    {{#each this.plugins as |plugin|}}
+      <li>
+        {{link-to plugin.label "docs.plugins.from-repository" plugin.namespace plugin.repository activeClass="is-active" }}
+      </li>
+    {{/each}}
+  {{/bulma-menu-list}}
+  {{#bulma-menu-list label="LBLOD Specific plugins"}}
+    {{#each this.lblodPlugins as |plugin|}}
+      <li>
+        {{link-to plugin.label "docs.plugins.from-repository" plugin.namespace plugin.repository activeClass="is-active"}}
+      </li>
+    {{/each}}
+  {{/bulma-menu-list}}
 
-    {{#bulma-menu-list label="Example implementations"}}
-      {{#each this.existingImplementations as |impl|}}
-        <li>
-          {{link-to impl.label "docs.implementations.from-repository" impl.namespace impl.repository activeClass="is-active"}}
-        </li>
-      {{/each}}
-    {{/bulma-menu-list}}
+  {{#bulma-menu-list label="Example implementations"}}
+    {{#each this.existingImplementations as |impl|}}
+      <li>
+        {{link-to impl.label "docs.implementations.from-repository" impl.namespace impl.repository activeClass="is-active"}}
+      </li>
+    {{/each}}
+  {{/bulma-menu-list}}
 
 {{/bulma-menu}}
