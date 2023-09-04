@@ -2,7 +2,7 @@
 <p>
   It is possible to integrate the editor in an iframe, even if it is running on a different domain. Some extra steps are required to interact with the editor in this case. The best (and possibly only) approach is to use <a href="https://html.spec.whatwg.org/multipage/web-messaging.html#crossDocumentMessages">postContent</a>
   to send messages to and receive messages from the iframe. This document describes how to set this up. In the examples below, <code>software.html</code> is the parent page and <code>editor.html</code> is the page used in the iframe. This guide
-  assumes the editor is {{#link-to "docs.deploy-as-library"}}set up as a javascript library{{/link-to}}
+  assumes the editor is <LinkTo @route="docs.deploy-as-library">set up as a javascript library</LinkTo>
 </p>
 
 <p>

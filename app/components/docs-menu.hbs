@@ -1,0 +1,44 @@
+<BulmaMenu>
+  <BulmaMenuList @label="Outline">
+    <li>
+      <LinkTo @route="docs.index" class="item" @activeClass="is-active">General</LinkTo>
+    </li>
+  </BulmaMenuList>
+  <BulmaMenuList @label="Core">
+    {{#each this.core as |component|}}
+      <li>
+        <LinkTo
+          @route="docs.core.from-repository"
+          @models={{array component.namespace component.repository}}
+          @activeClass="is-active">
+          {{component.label}}
+        </LinkTo>
+        </li>
+    {{/each}}
+  </BulmaMenuList>
+  <BulmaMenuList @label="Plugins">
+    {{#each this.plugins as |plugin|}}
+      <li>
+        <LinkTo
+          @route="docs.plugins.from-repository"
+          @models={{array plugin.namespace plugin.repository}}
+          @activeClass="is-active">
+          {{plugin.label}}
+        </LinkTo>
+      </li>
+    {{/each}}
+  </BulmaMenuList>
+  <BulmaMenuList @label="Example implementations">
+    {{#each this.existingImplementations as |impl|}}
+      <li>
+        <LinkTo
+          @route="docs.implementations.from-repository"
+          @models={{array impl.namespace impl.repository}}
+          @activeClass="is-active">
+          {{impl.label}}
+        </LinkTo>
+      </li>
+    {{/each}}
+  </BulmaMenuList>
+
+</BulmaMenu>
