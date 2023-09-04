@@ -13,7 +13,11 @@
     <h3 class="is-4 subtitle">Your Ember.js app needs say</h3>
     <p>
       Given an existing ember-app, we'll show you how to integrate the say-editor in it. Check out the
-      <LinkTo @route="docs.deploy-as-addon">tutorial</LinkTo>
+      <LinkTo
+        @route="docs.core.from-repository"
+        @models={{array "lblod" "ember-rdfa-editor"}}>
+        documentation
+      </LinkTo>
       <br> <br>
       To see a real-world implementation, check out
       <LinkTo
@@ -27,7 +31,7 @@
 
 <div class="card">
   <div class="card-header">
-    <h2 class="card-header-title">Other implementations</h2>
+    <h2 class="card-header-title">Integrating the editor as a javascript package.</h2>
     <a href="#" class="card-header-icon" aria-label="more options">
       <span class="icon">
         <i class="fa fa-plug" aria-hidden="true"></i>
@@ -39,49 +43,9 @@
     <p>
       Convinced by the capabilities of the say-editor, but don't want to use Ember.js?<br>
       Don't worry, we got you! There is still a way to use the editor in a framework-agnostic way.<br>
-      You can either integrate it as an <LinkTo @route="docs.iframe-support">iFrame</LinkTo> or
-      as an <LinkTo @route="docs.deploy-as-library">external JavaScript library</LinkTo>.
+      You can integrate is as an external javascript library using <LinkTo
+                                                                     @route="docs.core.from-repository"
+                                                                     @models={{array "lblod" "frontend-embeddable-notule-editor"}}>Embeddable</LinkTo>.
     </p>
   </div>
 </div>
-
-<div class="card">
-  <div class="card-header">
-    <h2 class="card-header-title">Want to develop for the say-editor?</h2>
-    <a href="#" class="card-header-icon" aria-label="more options">
-      <span class="icon">
-        <i class="fa fa-circle-o" aria-hidden="true"></i>
-      </span>
-    </a>
-  </div>
-  <div class="card-content">
-    <h3 class="is-4 subtitle">Write your first say plugin with a hands-on tutorial</h3>
-    <p>
-      Say doesn't understand everything. You may have a different need. That's exactly why we
-      wrote <LinkTo @route="docs.plugins.getting-started">this tutorial</LinkTo> to get you started.
-    </p>
-    <p>
-      Say makes it simple to add knowldge.  Follow the tutorial, learn
-      to find the most relevant documentation, and make Say smarter for
-      your use-case.
-    </p>
-  </div>
-</div>
-
-{{!-- <div class="card">
-  <div class="card-header">
-    <h2 class="card-header-title">Working on the core of the editor.</h2>
-    <a href="#" class="card-header-icon" aria-label="more options">
-      <span class="icon">
-        <i class="fa fa-circle-o" aria-hidden="true"></i>
-      </span>
-    </a>
-  </div>
-  <div class="card-content">
-    <h3 class="is-4 subtitle">Get insight in the core components of the editor</h3>
-    <p>
-      Plunder Privateer killick long clothes pink ho tackle skysail haul wind snow. Marooned cutlass handsomely ballast sutler cable hempen halter league grog blossom Buccaneer. Belaying pin interloper jury mast clap of thunder Jolly Roger Davy
-      Jones' Locker piracy chase guns chandler splice the main brace.
-    </p>
-  </div>
-</div> --}}
