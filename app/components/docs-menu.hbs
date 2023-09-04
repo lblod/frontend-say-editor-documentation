@@ -1,0 +1,63 @@
+<BulmaMenu>
+  <BulmaMenuList @label="Outline">
+    <li>
+      <LinkTo @route="docs.index" class="item" @activeClass="is-active">General</LinkTo>
+    </li>
+    <li>
+      <LinkTo @route="docs.plugins.getting-started" @activeClass="is-active" class="item">Getting started</LinkTo>
+    </li>
+  </BulmaMenuList>
+  <BulmaMenuList @label="Deployment">
+    <li>
+      <LinkTo @route="docs.deploy-as-addon" @activeClass="is-active">As an Ember.js addon</LinkTo>
+    </li>
+    <li>
+      <LinkTo @route="docs.deploy-as-library" @activeClass="is-active">As a JavaScript library</LinkTo>
+    </li>
+    <li>
+      <LinkTo @route="docs.iframe-support" @activeClass="is-active">Using an iframe</LinkTo>
+    </li>
+  </BulmaMenuList>
+  <BulmaMenuList @label="Core">
+    <li>
+      <LinkTo @route="docs.core-development" class="item" @activeClass="is-active">Overview</LinkTo>
+    </li>
+
+    {{#each this.core as |component|}}
+      <li>
+        <LinkTo
+          @route="docs.core.from-repository"
+          @models={{array component.namespace component.repository}}
+          @activeClass="is-active">
+          {{component.label}}
+        </LinkTo>
+        </li>
+    {{/each}}
+    <li><a href="/code/" target="_blank" rel="noopener noreferrer"> API documentation </a> </li>
+  </BulmaMenuList>
+  <BulmaMenuList @label="Plugins">
+    {{#each this.plugins as |plugin|}}
+      <li>
+        <LinkTo
+          @route="docs.plugins.from-repository"
+          @models={{array plugin.namespace plugin.repository}}
+          @activeClass="is-active">
+          {{plugin.label}}
+        </LinkTo>
+      </li>
+    {{/each}}
+  </BulmaMenuList>
+  <BulmaMenuList @label="Example implementations">
+    {{#each this.existingImplementations as |impl|}}
+      <li>
+        <LinkTo
+          @route="docs.implementations.from-repository"
+          @models={{array impl.namespace impl.repository}}
+          @activeClass="is-active">
+          {{impl.label}}
+        </LinkTo>
+      </li>
+    {{/each}}
+  </BulmaMenuList>
+
+</BulmaMenu>

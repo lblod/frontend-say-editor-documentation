@@ -13,10 +13,12 @@
     <h3 class="is-4 subtitle">Your Ember.js app needs say</h3>
     <p>
       Given an existing ember-app, we'll show you how to integrate the say-editor in it. Check out the
-      {{#link-to "docs.deploy-as-addon"}}tutorial{{/link-to}}.
+      <LinkTo @route="docs.deploy-as-addon">tutorial</LinkTo>
       <br> <br>
       To see a real-world implementation, check out
-      {{link-to "gelinkt-notuleren" "docs.implementations.from-repository" "lblod" "app-gelinkt-notuleren"}}. <br>
+      <LinkTo
+        @route="docs.implementations.from-repository"
+        @models={{array "lblod" "app-gelinkt-notuleren"}}>Gelinkt Notuleren</LinkTo>. <br>
       Many of the documented plugins are used in this project. <br>
       It will also give you a good idea of the possible user interactions with the say-editor.
     </p>
@@ -37,8 +39,8 @@
     <p>
       Convinced by the capabilities of the say-editor, but don't want to use Ember.js?<br>
       Don't worry, we got you! There is still a way to use the editor in a framework-agnostic way.<br>
-      You can either integrate it as an {{#link-to "docs.iframe-support"}}iFrame{{/link-to}} or
-      as an {{#link-to "docs.deploy-as-library"}}external JavaScript library{{/link-to}}.
+      You can either integrate it as an <LinkTo @route="docs.iframe-support">iFrame</LinkTo> or
+      as an <LinkTo @route="docs.deploy-as-library">external JavaScript library</LinkTo>.
     </p>
   </div>
 </div>
@@ -56,7 +58,7 @@
     <h3 class="is-4 subtitle">Write your first say plugin with a hands-on tutorial</h3>
     <p>
       Say doesn't understand everything. You may have a different need. That's exactly why we
-      wrote {{#link-to "docs.plugins.getting-started"}}this tutorial{{/link-to}} to get you started.
+      wrote <LinkTo @route="docs.plugins.getting-started">this tutorial</LinkTo> to get you started.
     </p>
     <p>
       Say makes it simple to add knowldge.  Follow the tutorial, learn
